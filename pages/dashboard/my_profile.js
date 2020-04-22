@@ -75,7 +75,7 @@ const MyProfile = () => {
 
               <Navigation className="navigation">
                 <Container className="container">
-                  <ul className="menu">
+                  <ul className="profile-menu">
                     <li
                       className={active === 'post' ? 'active' : ''}
                       onClick={() => handleMenu('post')}

@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { initialData } from './RandomizedLineConfig';
 
 class Graph extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.setState(initialData);
   }
   componentDidMount() {

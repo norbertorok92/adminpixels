@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import {
   IoIosArrowBack,
   IoIosArrowForward,
@@ -17,7 +17,7 @@ import GlideCarousel, { GlideSlide } from 'ui/GlideCarousel/GlideCarousel';
 import Modal from 'ui/Antd/Modal/Modal';
 import PostCard from 'components/PostCard';
 import AvatarCard from 'components/AvatarCard/AvatarCard';
-import Comments from './Comments';
+import Comments from './comments';
 import PostsWrapper, { Button, ContentWrapper } from './Posts.styles';
 
 const galleryOptions = {
@@ -127,8 +127,8 @@ const Posts = ({ data, avatar, username }) => {
               <div className="avatar-wrapper">
                 <AvatarCard avatar={avatar} username={username} />
                 <span>•</span>
-                <Link to="/dashboard/my-profile" rel="nofollow">
-                  Follow
+                <Link href="/dashboard/my-profile">
+                  <a>Follow</a>
                 </Link>
               </div>
               <button type="button">

@@ -7,19 +7,10 @@ import {
 } from 'library/helpers/style_utils';
 import WithDirection from 'library/helpers/rtl';
 
-const ThemeSwitcherStyle = styled.div`
-  background-color: #ffffff;
-  width: 340px;
+const SettingsStyle = styled.div`
+  width: 100%;
   height: calc(100% - 70px);
   padding: 0 0 50px;
-  flex-shrink: 0;
-  position: fixed;
-  top: 70px;
-  right: ${props => (props['data-rtl'] === 'rtl' ? 'inherit' : '-340px')};
-  left: ${props => (props['data-rtl'] === 'rtl' ? '-340px' : 'inherit')};
-  z-index: 1001;
-  ${transition()};
-  ${boxShadow('-1px 0 5px rgba(0,0,0,0.25)')};
 
   @media only screen and (max-width: 767px) {
     width: 270px;
@@ -252,4 +243,4 @@ const ThemeSwitcherStyle = styled.div`
   }
 `;
 
-export default WithDirection(ThemeSwitcherStyle);
+export default WithDirection(SettingsStyle);

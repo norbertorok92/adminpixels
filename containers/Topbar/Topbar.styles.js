@@ -437,18 +437,6 @@ const TopbarWrapper = styled.div`
       }
     }
 
-    &.topbarMail {
-      .ant-popover-inner {
-        .ant-popover-inner-content {
-          .isoDropdownContent {
-            @media only screen and (max-width: 519px) {
-              right: -170px;
-            }
-          }
-        }
-      }
-    }
-
     &.topbarMessage {
       .ant-popover-inner {
         .ant-popover-inner-content {

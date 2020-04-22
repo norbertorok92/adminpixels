@@ -25,7 +25,7 @@ export default class DynamicDoughnutChart extends Component {
     super(props);
     this.state = getState();
   }
-  componentWillMount() {
+  componentDidMount() {
     setInterval(() => {
       this.setState(getState());
     }, 5000);

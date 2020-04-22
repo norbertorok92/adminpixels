@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd';
-import Column from 'Column/Column';
+import Column from '../Column/Column';
 import { reorder, reorderTasks } from 'library/helpers/reorder';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import scrumBoardActions from 'redux/scrumBoard/actions';

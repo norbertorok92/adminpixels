@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import scrumBoardActions from 'redux/scrumBoard/actions';
-import NoBoardFounds from 'BoardNotFound/BoardNotFound';
+import NoBoardFounds from '../BoardNotFound/BoardNotFound';
 import BoardListCard from './BoardListCard/BoardListCard';
-import AppLayout from 'AppLayout/AppLayout';
+import AppLayout from '../../AppLayout/AppLayout';
 import { filterProjects } from 'library/helpers/filterProjects';
 import { Table } from './BoardList.style';
 function BoardLists({

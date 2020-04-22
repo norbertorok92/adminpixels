@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import TaskItem from 'Task';
+import TaskItem from '../Task';
 import { DropZone, Wrapper } from './TaskList.style';
 import { Scrollbars } from 'react-custom-scrollbars';
 

@@ -23,7 +23,7 @@ class GridLayout extends Component {
       breakpoint: 'lg',
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ allBox: this.props.allBox });
   }
   componentWillReceiveProps(nextProps) {

@@ -16,9 +16,8 @@ export default function TopbarUser() {
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
+      <a className="isoDropdownLink">My Profile</a>
       <a className="isoDropdownLink">Settings</a>
-      <a className="isoDropdownLink">Feedback</a>
-      <a className="isoDropdownLink">Help</a>
       <a className="isoDropdownLink" onClick={() => dispatch(logout())}>
         Logout
       </a>

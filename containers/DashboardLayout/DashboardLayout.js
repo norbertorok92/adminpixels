@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout } from 'antd';
 
 import Sidebar from 'containers/Sidebar/Sidebar';
-import ThemeSwitcher from 'containers/ThemeSwitcher/ThemeSwitcher';
 import Topbar from 'containers/Topbar/Topbar';
 import siteConfig from 'config/site.config';
 import AppHolder from './DashboardLayout.styles';
@@ -45,7 +44,6 @@ export default function DashboardLayout({ children }) {
             </Footer>
           </Layout>
         </Layout>
-        <ThemeSwitcher />
       </Layout>
     </AppHolder>
   );

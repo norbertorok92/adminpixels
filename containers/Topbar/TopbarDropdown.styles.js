@@ -212,12 +212,6 @@ const TopbarDropdownWrapper = styled.div`
     }
   }
 
-  &.topbarMail {
-    @media only screen and (max-width: 519px) {
-      right: -170px;
-    }
-  }
-
   &.topbarMessage {
     @media only screen and (max-width: 500px) {
       right: -69px;

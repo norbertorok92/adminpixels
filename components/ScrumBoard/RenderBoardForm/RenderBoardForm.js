@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Field } from 'formik';
 import { Button, Tooltip } from 'antd';
-import { AntInput, AntSelect, AntSwitch } from 'AntFields';
-import { isRequired } from 'ValidateFields';
+import { AntInput, AntSelect, AntSwitch } from 'components/ScrumBoard/AntFields';
+import { isRequired } from '../ValidateFields';
 import ThumbIcon from './08-icon.svg';
 import { Wrapper } from './RenderBoardForm.style';
 const formItemLayout = {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
-import { AntInput } from 'AntFields';
-import { isRequired } from 'ValidateFields';
+import { AntInput } from 'components/ScrumBoard/AntFields';
+import { isRequired } from '../ValidateFields';
 import { Form, Field } from 'formik';
-import HeadingWithIcon from 'HeadingWithIcon/HeadingWithIcon';
+import HeadingWithIcon from 'components/ScrumBoard/HeadingWithIcon/HeadingWithIcon';
 import FolderIcon from './05-icon.svg';
 import RenderColumnWrapper from './RenderColumnForm.style';
 

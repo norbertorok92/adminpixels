@@ -7,13 +7,13 @@ import {
   AntTextArea,
 } from 'components/ScrumBoard/AntFields';
 import { dateFormat } from 'components/ScrumBoard/FieldFormats';
-import CreateTaskHeader from 'CreateTaskHeader/CreateTaskHeader';
+import CreateTaskHeader from '../CreateTaskHeader/CreateTaskHeader';
 import HeadingWithIcon from 'components/ScrumBoard/HeadingWithIcon/HeadingWithIcon';
 import TitleIcon from 'assets/images/icon/05-icon.svg';
 import DescriptionIcon from 'assets/images/icon/06-icon.svg';
 import AttachmentIcon from 'assets/images/icon/01-icon.svg';
 
-import { AttachmentWrapper } from 'TaskCreateOrUpdate.style';
+import { AttachmentWrapper } from '../TaskCreateOrUpdate.style';
 
 export default ({
   handleSubmit,

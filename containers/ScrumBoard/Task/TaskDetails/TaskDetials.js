@@ -12,7 +12,7 @@ import {
   TaskName,
   TaskDescription,
   ClockIcon,
-} from 'Task.style';
+} from '../Task.style';
 import PlusIcon from 'assets/images/icon/24.svg';
 import TitleIcon from 'assets/images/icon/05-icon.svg';
 import DescriptionIcon from 'assets/images/icon/06-icon.svg';

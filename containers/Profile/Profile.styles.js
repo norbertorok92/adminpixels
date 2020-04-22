@@ -67,6 +67,7 @@ export const Banner = styled.div`
           font-weight: 500;
           color: #ffffff;
           pointer-events: all;
+          margin: 0;
           @media only screen and (max-width: 667px) {
             font-size: 22px;
             line-height: 34px;
@@ -91,7 +92,7 @@ export const Navigation = styled.div`
   background-color: #ffffff;
   pointer-events: all;
   box-shadow: 0 1px 2px #e5e5e5;
-  ul.menu {
+  ul.profile-menu {
     display: flex;
     align-items: center;
     justify-content: center;

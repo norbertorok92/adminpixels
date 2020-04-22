@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Card, Badge, Popconfirm, Tooltip } from 'antd';
 import moment from 'moment';
 import { IconSvg } from 'components/ScrumBoard/IconSvg/IconSvg';
-import { HrBar, CardFooter, CardBody } from 'Task.style';
+import { HrBar, CardFooter, CardBody } from '../Task.style';
 import ClockIcon from 'assets/images/icon/17.svg';
 import plus from 'assets/images/icon/24.svg';
 import RemoveIcon from 'assets/images/icon/02-icon.svg';

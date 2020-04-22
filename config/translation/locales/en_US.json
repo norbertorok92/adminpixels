@@ -1,4 +1,15 @@
 {
+  "sidebar.overview": "Overview",
+  "sidebar.profile": "Profile",
+  "sidebar.teams": "Teams",
+  "sidebar.members": "Members",
+  "sidebar.calendar": "Calendar",
+  "sidebar.notes": "Notes",
+  "sidebar.todos": "Todos",
+  "sidebar.settings": "Settings",
+
+
+
   "sidebar.email": "Email",
   "sidebar.chat": "Chat",
   "sidebar.ecommerce": "Ecommerce",
@@ -12,9 +23,6 @@
   "sidebar.firestorecrudinvestor": "Investors",
   "sidebar.googleMap": "Google Map",
   "sidebar.leafletMap": "Leaflet Map",
-  "sidebar.calendar": "Calendar",
-  "sidebar.notes": "Notes",
-  "sidebar.todos": "Todos",
   "sidebar.contacts": "Contacts",
   "sidebar.shuffle": "Shuffle",
   "sidebar.charts": "Charts",
@@ -83,7 +91,6 @@
   "sidebar.githubSearch": "Github Search",
   "sidebar.youtubeSearch": "Youtube Search",
   "sidebar.scrumboard": "Scrum Board",
-  "sidebar.profile": "Profile",
   "sidebar.quiz": "Quiz",
   "sidebar.authCheck": "Check Auth Status",
   "sidebar.swiperSlider": "Swiper Slider",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Popconfirm, Popover } from 'antd';
 import { Draggable } from 'react-beautiful-dnd';
-import TaskList from 'Task/TaskList/TaskList';
+import TaskList from '../Task/TaskList/TaskList';
 import { IconSvg } from 'components/ScrumBoard/IconSvg/IconSvg';
 import Title from 'components/ScrumBoard/Title';
 import CreateOrUpdateColumn from './ColumnCreateOrUpdate/ColumnCreateOrUpdate';
