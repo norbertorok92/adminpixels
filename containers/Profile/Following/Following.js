@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'ui/Antd/Button/Button';
+import Button from 'UI/Antd/Button/Button';
 import AvatarCard from 'components/AvatarCard/AvatarCard';
 import Wrapper, { FollowingList, ListItem } from './Following.styles';
 

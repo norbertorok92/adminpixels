@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Spin from 'ui/Antd/Spin/Spin';
-import Modal from 'ui/Antd/Modal/Modal';
-import Container from 'ui/UI/Container/Container';
+import Spin from 'UI/Antd/Spin/Spin';
+import Modal from 'UI/Antd/Modal/Modal';
+import Container from 'UI/UI/Container/Container';
 import AvatarCard from 'components/AvatarCard/AvatarCard';
 import Head from 'next/head';
 import Posts from 'containers/Profile/Posts/Posts';

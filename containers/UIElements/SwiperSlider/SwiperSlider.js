@@ -4,8 +4,8 @@ import LayoutWrapper from 'components/utility/layoutWrapper.js';
 import ContentHolder from 'components/utility/contentHolder';
 import Box from 'components/utility/box';
 import IntlMessages from 'components/utility/intlMessages';
-import Row from 'ui/Antd/Grid/Row';
-import Col from 'ui/Antd/Grid/Col';
+import Row from 'UI/Antd/Grid/Row';
+import Col from 'UI/Antd/Grid/Col';
 import {
   SwiperBasic,
   SwiperWithCustomNav,
@@ -25,7 +25,7 @@ import {
   SwiperAutoPlay,
   SwiperLazyLoad,
   SwiperWithCustomScroll,
-} from 'ui/SwiperSlider';
+} from 'UI/SwiperSlider';
 import basicStyle from 'assets/styles/constants';
 import PageWrapper from './SwiperSlider.styles';
 

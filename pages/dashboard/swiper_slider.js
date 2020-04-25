@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Row from 'ui/Antd/Grid/Row';
-import Col from 'ui/Antd/Grid/Col';
+import Row from 'UI/Antd/Grid/Row';
+import Col from 'UI/Antd/Grid/Col';
 import PageHeader from 'components/utility/pageHeader';
 import LayoutWrapper from 'components/utility/layoutWrapper.js';
 import ContentHolder from 'components/utility/contentHolder';
@@ -26,7 +26,7 @@ import {
   SwiperAutoPlay,
   SwiperLazyLoad,
   SwiperWithCustomScroll,
-} from 'ui/SwiperSlider';
+} from 'UI/SwiperSlider';
 import basicStyle from 'assets/styles/constants';
 
 // data

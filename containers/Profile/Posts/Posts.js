@@ -13,11 +13,11 @@ import {
   FiMessageCircle,
   FiMoreHorizontal,
 } from 'react-icons/fi';
-import GlideCarousel, { GlideSlide } from 'ui/GlideCarousel/GlideCarousel';
-import Modal from 'ui/Antd/Modal/Modal';
+import GlideCarousel, { GlideSlide } from 'UI/GlideCarousel/GlideCarousel';
+import Modal from 'UI/Antd/Modal/Modal';
 import PostCard from 'components/PostCard';
 import AvatarCard from 'components/AvatarCard/AvatarCard';
-import Comments from './comments';
+import Comments from './Comments';
 import PostsWrapper, { Button, ContentWrapper } from './Posts.styles';
 
 const galleryOptions = {
