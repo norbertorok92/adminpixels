@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 
 import Board from './Board/Board';
 import ModalRoot from './rootModal';
@@ -8,17 +8,12 @@ import BoardLists from './Board/BoardList/BoardList';
 import CreateBoard from './Board/BoardCreateOrUpdate/BoardCreateOrUpdate';
 
 export default function ScrumBoard() {
-  // console.log('CICI', match)
-  // console.log('CICI', window.location)
-  // let match = useRouteMatch();
   return (
     <>
       <Router>
-        <Switch>
-          <Route exact path="/dashboard/scrum_board" component={BoardLists} />
-          <Route exact path="/dashboard/scrum_board/:id" component={CreateBoard} />
-          <Route path="/dashboard/scrum_board/project/:id" component={Board} />
-        </Switch>
+        <Route exact path="/dashboard/project" component={BoardLists} />
+        <Route exact path="/dashboard/project/:id" component={CreateBoard} />
+        <Route path="/dashboard/project/board/:id" component={Board} />
       </Router>
       <ModalRoot />
       <DrawerRoot />

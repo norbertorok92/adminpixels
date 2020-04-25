@@ -1,8 +1,9 @@
 {
   "sidebar.overview": "Overview",
   "sidebar.profile": "Profile",
+  "sidebar.people": "People",
   "sidebar.teams": "Teams",
-  "sidebar.members": "Members",
+  "sidebar.projects": "Projects",
   "sidebar.calendar": "Calendar",
   "sidebar.notes": "Notes",
   "sidebar.todos": "Todos",

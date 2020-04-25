@@ -59,8 +59,11 @@ const SidebarWrapper = styled.div`
       }
     }
     .isoDashboardMenu {
-      padding-top: 35px;
-      padding-bottom: 35px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 70px);
+      padding-top: 20px;
+      padding-bottom: 10px;
       background: transparent;
       a {
         text-decoration: none;
@@ -74,6 +77,10 @@ const SidebarWrapper = styled.div`
         align-items: center;
         padding: 0 24px;
         margin: 0;
+
+        &:last-of-type {
+          margin-top: auto;
+        }
       }
       .isoMenuHolder {
         display: flex;

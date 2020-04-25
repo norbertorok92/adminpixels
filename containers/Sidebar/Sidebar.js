@@ -102,7 +102,8 @@ export default function Sidebar(props) {
         style={styling}
       >
         <Logo collapsed={isCollapsed} />
-        <Scrollbars style={{ height: scrollheight - 70 }}>
+        {/* <Scrollbars style={{ height: scrollheight - 70 }}> */}
+        <Scrollbars style={{ height: `100vh` }}>
           <Menu
             onClick={handleClick}
             theme="dark"

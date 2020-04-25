@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router'
 import isEmpty from 'lodash/isEmpty';
 import scrumBoardActions from 'redux/scrumBoard/actions';
 import NoBoardFounds from '../BoardNotFound/BoardNotFound';
@@ -19,9 +20,11 @@ function BoardLists({
     boardsRenderWatcher();
   }, [boardsRenderWatcher]);
 
+  const router = useRouter()
+
   const handleEdit = board => {
     editBoard(board);
-    history.push(`/dashboard/scrum-board/${board.id}`);
+    router.push(`/dashboard/projects/${board.id}`);
   };
 
   return (

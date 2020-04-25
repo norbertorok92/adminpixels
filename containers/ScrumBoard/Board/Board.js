@@ -10,7 +10,7 @@ import { filterSearchedComponents } from 'library/helpers/searchTaskCard';
 import BoardLayout from './BoardLayout/BoardLayout';
 import modalActions from 'redux/modal/actions';
 
-function Board({
+const Board = ({
   currentBoard,
   openModal,
   boards,
@@ -23,10 +23,11 @@ function Board({
   containerHeight,
   withScrollableColumns = true,
   boardRenderWatcher,
-}) {
+  boardId
+}) => {
   useEffect(() => {
-    boardRenderWatcher(match.params.id);
-  }, [boardRenderWatcher, match.params.id]);
+    boardRenderWatcher(boardId);
+  }, [boardRenderWatcher, boardId]);
   const onDragEnd = ({ source, destination, type, draggableId }) => {
     // source= {
     //   droppableId: 'column-1',
@@ -53,7 +54,7 @@ function Board({
     if (type === 'COLUMN') {
       const columnOrdered = reorder(ordered, source.index, destination.index);
       moveColumnWatcher({
-        board_id: match.params.id,
+        board_id: boardId,
         column_orders: columnOrdered,
       });
       return;
@@ -99,7 +100,7 @@ function Board({
                   index={index}
                   title={column.title}
                   column={column}
-                  boardId={match.params.id}
+                  boardId={boardId}
                   tasks={tasksWithinColumn}
                   isScrollable={withScrollableColumns}
                 />
@@ -109,7 +110,7 @@ function Board({
             onClick={() =>
               openModal({
                 modalType: 'CREATE_COLUMN',
-                modalProps: { boardId: match.params.id },
+                modalProps: { boardId: boardId },
               })
             }
           >
@@ -138,11 +139,11 @@ export default connect(
     return {
       ordered:
         state.scrumBoard.boards &&
-        state.scrumBoard.boards[ownProps.match.params.id] &&
-        state.scrumBoard.boards[ownProps.match.params.id].column_orders,
+        state.scrumBoard.boards[ownProps.boardId] &&
+        state.scrumBoard.boards[ownProps.boardId].column_orders,
       state: state.scrumBoard,
       boards: state.scrumBoard.boards,
-      currentBoard: state.scrumBoard.boards[ownProps.match.params.id],
+      currentBoard: state.scrumBoard.boards[ownProps.boardId],
       columns: filterSearchedComponents(
         state.scrumBoard.tasks,
         state.scrumBoard.columns,

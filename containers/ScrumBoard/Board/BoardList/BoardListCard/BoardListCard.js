@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Progress, Icon, Popover } from 'antd';
 import moment from 'moment';
 import {
@@ -31,7 +31,7 @@ export default function BoardListCard({ item, onDelete, onEdit }) {
     <tbody>
       <tr>
         <td>
-          <Link to={`/dashboard/scrum-board/project/${item.id}`}>
+          <Link href={`/dashboard/projects/board/${item.id}`} passHref>
             <ProjectInfo>
               <Avatar src={AvatarIcon} alt={item.name} />
               <InfoWrapper>

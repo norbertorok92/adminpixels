@@ -116,7 +116,7 @@ const initialData = {
     },
     'board-2': {
       id: 'board-2',
-      column_orders: ['column-2'],
+      column_orders: ['column-1', 'column-3'],
       title: 'Headless',
       category: 'OPs',
       progress: 70,
@@ -130,7 +130,7 @@ const initialData = {
     },
     'board-3': {
       id: 'board-3',
-      column_orders: [],
+      column_orders: ['column-1', 'column-3'],
       title: 'React Next Landing',
       category: 'Service Desk',
       progress: 30,

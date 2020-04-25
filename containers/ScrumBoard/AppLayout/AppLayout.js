@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Layout, Button, Popover, Icon, Checkbox } from 'antd';
 import SearchInput from 'components/ScrumBoard/SearchInput/SearchInput';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -22,66 +23,71 @@ const CATEGORIES = [
   { label: 'General', value: 'General' },
 ];
 
-const AppLayout = ({ children, setSearchText, history, match }) => (
-  <Layout style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
-    <Header>
-      <Title>My Projects</Title>
+const AppLayout = ({ children, setSearchText }) => {
 
-      <Button type="primary" onClick={() => history.push(`${match.url}/new`)}>
-        Create Project
-      </Button>
-    </Header>
+  const router = useRouter()
 
-    <HeaderSecondary>
-      <SearchInput onChange={value => setSearchText(value)} />
+  return (
+    <Layout style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+      <Header>
+        <Title>My Projects</Title>
 
-      <Filters>
-        <Popover
-          placement="bottom"
-          overlayClassName=""
-          content={
-            <Checkbox.Group
-              options={ALL_TYPES}
-              defaultValue={['Apple']}
-              onChange={value => console.log(value)}
-            />
-          }
-          trigger="click"
-        >
-          <span>
-            All Types <Icon type="caret-down" />
-          </span>
-        </Popover>
-        <Popover
-          placement="bottom"
-          content={
-            <Checkbox.Group
-              options={CATEGORIES}
-              defaultValue={['Apple']}
-              onChange={value => console.log(value)}
-            />
-          }
-          trigger="click"
-        >
-          <span>
-            Categories
-            <Icon type="caret-down" />
-          </span>
-        </Popover>
-      </Filters>
-    </HeaderSecondary>
+        <Button type="primary" onClick={() => router.push('/dashboard/projects/new')}>
+          Create Project
+        </Button>
+      </Header>
 
-    <Content
-      style={{
-        padding: '0 24px',
-      }}
-    >
-      <Scrollbars style={{ width: '100%', height: 'calc(100vh - 300px)' }}>
-        {children}
-      </Scrollbars>
-    </Content>
-  </Layout>
-);
+      <HeaderSecondary>
+        <SearchInput onChange={value => setSearchText(value)} />
+
+        <Filters>
+          <Popover
+            placement="bottom"
+            overlayClassName=""
+            content={
+              <Checkbox.Group
+                options={ALL_TYPES}
+                defaultValue={['Apple']}
+                onChange={value => console.log(value)}
+              />
+            }
+            trigger="click"
+          >
+            <span>
+              All Types <Icon type="caret-down" />
+            </span>
+          </Popover>
+          <Popover
+            placement="bottom"
+            content={
+              <Checkbox.Group
+                options={CATEGORIES}
+                defaultValue={['Apple']}
+                onChange={value => console.log(value)}
+              />
+            }
+            trigger="click"
+          >
+            <span>
+              Categories
+              <Icon type="caret-down" />
+            </span>
+          </Popover>
+        </Filters>
+      </HeaderSecondary>
+
+      <Content
+        style={{
+          padding: '0 24px',
+        }}
+      >
+        <Scrollbars style={{ width: '100%', height: 'calc(100vh - 300px)' }}>
+          {children}
+        </Scrollbars>
+      </Content>
+    </Layout>
+  )
+};
 
 export default connect(
   null,

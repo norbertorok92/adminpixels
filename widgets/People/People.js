@@ -8,7 +8,7 @@ export default class extends Component {
     return (
       <LayoutContentWrapper style={{ height: '100vh' }}>
         <PageHeader>
-          <IntlMessages id="sidebar.members" />
+          <IntlMessages id="sidebar.people" />
         </PageHeader>
       </LayoutContentWrapper>
     );

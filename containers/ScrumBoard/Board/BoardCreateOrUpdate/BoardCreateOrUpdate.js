@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Formik } from 'formik';
 import moment from 'moment';
 import uuidV4 from 'uuid/v4';
@@ -33,6 +34,7 @@ const initialValues = {
 };
 
 const CreateOrUpdateBoard = props => {
+  const router = useRouter();
   const initials = {
     ...initialValues,
     ...props.board,
@@ -44,7 +46,7 @@ const CreateOrUpdateBoard = props => {
       values.id = uuidV4();
     }
     props.createOrUpdateBoardWatcher(values);
-    props.history.push(`/dashboard/scrum-board/project/${values.id}`);
+    router.push(`/dashboard/projects/board/${values.id}`);
   };
 
   return (
@@ -63,7 +65,7 @@ const CreateOrUpdateBoard = props => {
           border="none"
           padding={'0'}
           alt="Close Icon"
-          onClick={() => props.history.push(`/dashboard/scrum-board`)}
+          onClick={() => router.push(`/dashboard/projects`)}
         />
       </TopBar>
       <FormWrapper>
@@ -79,7 +81,7 @@ const CreateOrUpdateBoard = props => {
 };
 export default connect(
   (state, ownProps) => ({
-    board: state.scrumBoard.boards[ownProps.match.params.id],
+    board: state.scrumBoard.boards[ownProps.boardId],
   }),
   {
     ...scrumBoardActions,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Layout, Menu, Dropdown, Icon, Popover, Checkbox, Tooltip } from 'antd';
 import SearchInput from 'components/ScrumBoard/SearchInput/SearchInput';
 import { IconSvg } from 'components/ScrumBoard/IconSvg/IconSvg';
@@ -57,7 +57,7 @@ const BoardLayout = ({
 
       {Object.values(boards).map(board => (
         <Menu.Item key={board.id}>
-          <Link to={`/dashboard/scrum-board/project/${board.id}`}>
+          <Link href={`/dashboard/projects/board/${board.id}`} passHref>
             <ProjectInfoCard>
               <Avatar src={AvatarIcon} />
               <InfoWrapper>
@@ -71,12 +71,12 @@ const BoardLayout = ({
 
       <Menu.Item>
         <ViewAll>
-          <Link to="/dashboard/scrum-board">View All Projects</Link>
+          <Link href="/dashboard/projects" passHref>View All Projects</Link>
         </ViewAll>
       </Menu.Item>
       <Menu.Item>
         <CreateProject>
-          <Link to="/dashboard/scrum-board/new">Create New Project</Link>
+          <Link href="/dashboard/projects/new" passHref>Create New Project</Link>
         </CreateProject>
       </Menu.Item>
     </Menu>
