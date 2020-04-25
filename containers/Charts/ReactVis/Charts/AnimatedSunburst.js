@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Sunburst } from 'react-vis';
-import Button from 'Button';
+import Button from 'components/uielements/button';
 import ChartWrapper from '../../Charts.styles';
 
 function randomLeaf() {
@@ -42,8 +42,8 @@ export default class extends Component {
         <div className="isoChartControl">
           <Button
             onClick={() => this.setState({ data: updateData() })}
-            buttonContent={'UPDATE'}
-          />
+          >UPDATE
+          </Button>
         </div>
         <Sunburst
           animation={{ damping: 20, stiffness: 300 }}

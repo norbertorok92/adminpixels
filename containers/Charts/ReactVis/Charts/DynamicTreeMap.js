@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Treemap } from 'react-vis';
-import Button from 'Button';
+import Button from 'components/uielements/button';
 import ChartWrapper from '../../Charts.styles';
 
 function _getRandomData() {
@@ -55,8 +55,9 @@ export default class extends Component {
             onClick={() =>
               this.setState({ useCirclePacking: !useCirclePacking })
             }
-            buttonContent={'TOGGLE CIRCLE PACK'}
-          />
+          >
+          TOGGLE CIRCLE PACK
+          </Button>
         </div>
         <Treemap {...treeProps} />
         click above to the update data

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Treemap } from 'react-vis';
-import Button from 'Button';
+import Button from 'components/uielements/button';
 import ChartWrapper from '../../Charts.styles';
 
 const MODE = [
@@ -36,9 +36,8 @@ export default class extends Component {
           <span> {MODE[modeIndex]} </span>
           <Button
             onClick={this.updateModeIndex(false)}
-            buttonContent={'PREV'}
-          />
-          <Button onClick={this.updateModeIndex(true)} buttonContent={'NEXT'} />
+          >PREV</Button>
+          <Button onClick={this.updateModeIndex(true)}>NEXT</Button>
         </div>
         <Treemap
           animation
