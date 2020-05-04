@@ -4,18 +4,17 @@ import Modal from 'UI/Antd/Modal/Modal';
 import Container from 'UI/UI/Container/Container';
 import AvatarCard from 'components/AvatarCard/AvatarCard';
 import Head from 'next/head';
-import Posts from 'containers/Profile/Posts/Posts';
-import Followers from 'containers/Profile/Followers/Followers';
-import Following from 'containers/Profile/Following/Following';
+import Posts from 'widgets/Profile/Posts/Posts';
+import Followers from 'widgets/Profile/Followers/Followers';
+import Following from 'widgets/Profile/Following/Following';
 import Wrapper, {
   Banner,
   Navigation,
   ContentWrapper,
-} from 'containers/Profile/Profile.styles';
+} from 'widgets/Profile/Profile.styles';
 import { useSelector, useDispatch } from 'react-redux';
 import profileActions from 'redux/profile/actions';
-import { withAuthSync } from 'authentication/auth.utils';
-import DashboardLayout from 'containers/DashboardLayout/DashboardLayout';
+import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
 const MyProfile = () => {
   const data = useSelector(state => state.profile.data);
   const loading = useSelector(state => state.profile.loading);
@@ -139,4 +138,4 @@ const MyProfile = () => {
   );
 };
 
-export default withAuthSync(MyProfile);
+export default MyProfile;

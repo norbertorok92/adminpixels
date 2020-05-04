@@ -1,6 +1,6 @@
 import React from 'react';
 import ComposeMail from './ComposeMail';
-import { timeDifference } from 'library/helpers/utility';
+import { timeDifference } from 'utils/helpers/utility';
 import MailAction from './SingleMailActions';
 import { tags, tagColor } from './MailTags.js';
 import {

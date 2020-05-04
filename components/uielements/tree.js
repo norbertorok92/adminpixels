@@ -1,6 +1,6 @@
 import { Tree } from 'antd';
 import AntTree from './styles/tree.style';
-import WithDirection from 'library/helpers/rtl';
+import WithDirection from 'utils/helpers/rtl';
 const WDTrees = AntTree(Tree);
 const Trees = WithDirection(WDTrees);
 

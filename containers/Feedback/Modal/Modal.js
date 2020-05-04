@@ -11,7 +11,7 @@ import Modals from 'components/Feedback/Modal';
 import basicStyle from 'assets/styles/constants';
 
 import ModalStyle, { ModalContent } from './Modal.styles';
-import WithDirection from 'library/helpers/rtl';
+import WithDirection from 'utils/helpers/rtl';
 
 const isoModal = ModalStyle(Modals);
 const Modal = WithDirection(isoModal);

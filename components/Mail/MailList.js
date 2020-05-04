@@ -1,8 +1,8 @@
 import React from 'react';
-import { timeDifference } from 'library/helpers/utility';
+import { timeDifference } from 'utils/helpers/utility';
 import { tags, tagColor } from './MailTags.js';
 import MailListWrapper from './MailList.style';
-import { direction } from 'library/helpers/rtl';
+import { direction } from 'utils/helpers/rtl';
 
 export default function mailList(
   mails,

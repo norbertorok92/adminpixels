@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { borderRadius, transition } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { borderRadius, transition } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 const MailTagsList = styled.ul`
   padding: 30px 0;
   text-align: ${props => (props['data-rtl'] === 'rtl' ? 'right' : 'left')};

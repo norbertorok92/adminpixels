@@ -1,11 +1,10 @@
 import Head from 'next/head';
-import BoardLists from 'containers/ScrumBoard/Board/BoardList/BoardList';
-import { withAuthSync } from 'authentication/auth.utils';
-import DashboardLayout from 'containers/DashboardLayout/DashboardLayout';
-import ModalRoot from 'containers/ScrumBoard/rootModal';
-import DrawerRoot from 'containers/ScrumBoard/rootDrawer';
+import BoardLists from 'widgets/ScrumBoard/Board/BoardList/BoardList';
+import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+import ModalRoot from 'widgets/ScrumBoard/rootModal';
+import DrawerRoot from 'widgets/ScrumBoard/rootDrawer';
 
-export default withAuthSync(() => (
+export default (() => (
   <>
     <Head>
       <title>Project Boards</title>

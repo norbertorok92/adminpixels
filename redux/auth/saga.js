@@ -1,7 +1,7 @@
 import { all, takeEvery, put, fork } from 'redux-saga/effects';
 import { createBrowserHistory } from 'history';
 
-import { getToken, clearToken } from 'library/helpers/utility';
+import { getToken, clearToken } from 'utils/helpers/utility';
 import actions from './actions';
 
 const history = createBrowserHistory();

@@ -11,7 +11,7 @@ import {
   MailPaginationWrapper,
   MailActionDropdown,
 } from './SingleMailActions.style';
-import { direction } from 'library/helpers/rtl';
+import { direction } from 'utils/helpers/rtl';
 
 function DeleteButton() {
   return (

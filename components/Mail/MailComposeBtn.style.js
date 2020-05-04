@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { borderRadius, transition } from 'library/helpers/style_utils';
+import { borderRadius, transition } from 'utils/helpers/style_utils';
 
 const MailComposeBtnWrapper = styled.div`
   width: 100%;

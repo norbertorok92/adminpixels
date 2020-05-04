@@ -1,6 +1,6 @@
 import React from 'react';
 import MailPagination from './MailPagination.style';
-import { direction } from 'library/helpers/rtl';
+import { direction } from 'utils/helpers/rtl';
 
 export default function() {
   return (

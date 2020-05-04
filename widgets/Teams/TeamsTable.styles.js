@@ -5,9 +5,9 @@ import {
   transition,
   boxShadow,
   borderRadius,
-} from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
-// /Users/norbert/My stuff/University/Master/Dissertation/dissert-app/library/helpers/rtl.js
+} from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
+// /Users/norbert/My stuff/University/Master/Dissertation/dissert-app/utils/helpers/rtl.js
 const TableWrapper = styled(Table)`
   overflow: hidden;
   overflow-x: auto;

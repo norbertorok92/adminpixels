@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { transition } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { transition } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 const WDSingleMailActions = styled.div`
   width: 100%;
   height: 80px;

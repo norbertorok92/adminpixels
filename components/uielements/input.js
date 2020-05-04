@@ -5,7 +5,7 @@ import {
   InputSearchWrapper,
   TextAreaWrapper,
 } from './styles/input.style';
-import WithDirection from 'library/helpers/rtl';
+import WithDirection from 'utils/helpers/rtl';
 const { Search, TextArea, Group } = Input;
 
 const WDStyledInput = InputWrapper(Input);

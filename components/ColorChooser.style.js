@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { borderRadius } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { borderRadius } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 const ColorChooserDropdown = styled.div`
   display: flex;
   flex-flow: row wrap;

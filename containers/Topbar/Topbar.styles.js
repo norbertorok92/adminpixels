@@ -4,8 +4,8 @@ import {
   transition,
   borderRadius,
   boxShadow,
-} from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+} from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 
 const TopbarWrapper = styled.div`
   .pixeladminTopbar {

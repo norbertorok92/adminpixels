@@ -1,8 +1,4 @@
-import ch from './raw/chenese.js';
-import fr from './raw/fr.js';
-import ital from './raw/ital.js';
-import span from './raw/span.js';
-import arab from './raw/arab.js';
+
 import english from './raw/eng.js';
 
 export function getKeys(object) {
@@ -22,8 +18,8 @@ export function getKeys(object) {
 }
 export function getValues(enMessages) {
   const { keys, variables } = getKeys(enMessages);
-  const langs = [english, ch, fr, ital, span, arab];
-  const langsNm = ['eng', 'ch', 'fr', 'ital', 'span', 'arab'];
+  const langs = [english];
+  const langsNm = ['eng'];
   langs.forEach((lang, ii) => {
     const translatedDAta = lang.split('\n');
     const obj = {};

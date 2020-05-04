@@ -8,7 +8,7 @@ import LayoutWrapper from 'components/utility/layoutWrapper.js';
 import ContentHolder from 'components/utility/contentHolder';
 import IntlMessages from 'components/utility/intlMessages';
 import basicStyle from 'assets/styles/constants';
-import { direction } from 'library/helpers/rtl';
+import { direction } from 'utils/helpers/rtl';
 
 const plainOptions = ['Apple', 'Pear', 'Orange'];
 const options = [

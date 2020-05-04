@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { borderRadius } from 'library/helpers/style_utils';
+import { borderRadius } from 'utils/helpers/style_utils';
 
 const Modals = ComponentName => styled(ComponentName)`
   .ant-modal-header {

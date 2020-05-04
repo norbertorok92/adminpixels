@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { transition, borderRadius } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { transition, borderRadius } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 
 const WDContactsWrapper = styled.div`
   padding: 50px 35px;

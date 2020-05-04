@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { transition } from 'library/style-util';
+import { transition } from 'utils/style-util';
 
 const Pagination = ComponentName => styled(ComponentName)`
   &.ant-pagination {

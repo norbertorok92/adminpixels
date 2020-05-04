@@ -1,6 +1,6 @@
 import { Transfer } from 'antd';
 import AntTransfer from './styles/transfer.style';
-import WithDirection from 'library/helpers/rtl';
+import WithDirection from 'utils/helpers/rtl';
 const WDTransfers = AntTransfer(Transfer);
 const Transfers = WithDirection(WDTransfers);
 

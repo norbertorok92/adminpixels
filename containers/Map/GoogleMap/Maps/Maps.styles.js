@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { transition, borderRadius } from 'library/helpers/style_utils';
+import { transition, borderRadius } from 'utils/helpers/style_utils';
 
 const BasicMapWrapper = styled.div`
   .isoGoogleMap {

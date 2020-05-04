@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Todo from 'containers/Todo/Todo';
-import { withAuthSync } from 'authentication/auth.utils';
-import DashboardLayout from 'containers/DashboardLayout/DashboardLayout';
-export default withAuthSync(() => (
+import Todo from 'widgets/Todo/Todo';
+import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+
+export default (() => (
   <>
     <Head>
       <title>Todo</title>
