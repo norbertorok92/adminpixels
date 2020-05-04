@@ -1,120 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useUser } from 'utils/hooks';
+
 import Input from 'components/uielements/input';
-import Checkbox from 'components/uielements/checkbox';
 import Button from 'components/uielements/button';
-import FirebaseSignUpForm from 'containers/FirebaseForm/FirebaseForm';
-import authAction from 'redux/auth/actions';
-import appActions from 'redux/app/actions';
-import Auth0 from 'authentication/Auth0';
 import IntlMessages from 'components/utility/intlMessages';
+
 import SignUpStyleWrapper from 'styled/SignUp.styles';
 
-const { login } = authAction;
-const { clearMenu } = appActions;
-
 export default function SignUp() {
-  const dispatch = useDispatch();
   const router = useRouter();
-
-  const handleLogin = (token = false) => {
-    console.log(token, 'handlelogin');
-    if (token) {
-      dispatch(login(token));
-    } else {
-      dispatch(login());
+  const [user, { mutate }] = useUser();
+  const [errorMsg, setErrorMsg] = useState('');
+  const [credentials, setCredentials] = useState(
+    {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
     }
-    dispatch(clearMenu());
-    history.push('/dashboard');
+  );
+
+  useEffect(() => {
+    // redirect to dashboard if user is authenticated
+    if (user) router.replace('/dashboard');
+  }, [user]);
+
+  const handleOnChange = (e) => {
+    e.persist();
+    setCredentials((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
   };
+
+  const handleSignup = async () => {
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    });
+    if (res.status === 201) {
+      const userObj = await res.json();
+      mutate(userObj);
+    } else {
+      setErrorMsg(await res.text());
+    }
+  };
+
   return (
-    <SignUpStyleWrapper className="isoSignUpPage">
-      <div className="isoSignUpContentWrapper">
-        <div className="isoSignUpContent">
-          <div className="isoLogoWrapper">
-            <Link href="/dashboard">
-              <IntlMessages id="page.signUpTitle" />
-            </Link>
-          </div>
-
-          <div className="isoSignUpForm">
-            <div className="isoInputWrapper isoLeftRightComponent">
-              <Input size="large" placeholder="First name" />
-              <Input size="large" placeholder="Last name" />
-            </div>
-
-            <div className="isoInputWrapper">
-              <Input size="large" placeholder="Username" />
-            </div>
-
-            <div className="isoInputWrapper">
-              <Input size="large" placeholder="Email" />
-            </div>
-
-            <div className="isoInputWrapper">
-              <Input size="large" type="password" placeholder="Password" />
-            </div>
-
-            <div className="isoInputWrapper">
-              <Input
-                size="large"
-                type="password"
-                placeholder="Confirm Password"
-              />
-            </div>
-
-            <div className="isoInputWrapper" style={{ marginBottom: '50px' }}>
-              <Checkbox>
-                <IntlMessages id="page.signUpTermsConditions" />
-              </Checkbox>
-            </div>
-
-            <div className="isoInputWrapper">
-              <Button type="primary">
-                <IntlMessages id="page.signUpButton" />
-              </Button>
-            </div>
-            <div className="isoInputWrapper isoOtherLogin">
-              <Button
-                onClick={handleLogin}
-                type="primary"
-                className="btnFacebook"
-              >
-                <IntlMessages id="page.signUpFacebook" />
-              </Button>
-              <Button
-                onClick={handleLogin}
-                type="primary"
-                className="btnGooglePlus"
-              >
-                <IntlMessages id="page.signUpGooglePlus" />
-              </Button>
-              <Button
-                onClick={() => {
-                  Auth0.login();
-                }}
-                type="primary"
-                className="btnAuthZero"
-              >
-                <IntlMessages id="page.signUpAuth0" />
-              </Button>
-
-              <FirebaseSignUpForm
-                signup={true}
-                history={router}
-                login={() => dispatch(login())}
-              />
-            </div>
-            <div className="isoInputWrapper isoCenterComponent isoHelperWrapper">
-              <Link href="/signin">
-                <IntlMessages id="page.signUpAlreadyAccount" />
+    <>
+      <Head>
+        <title>Sign Up to AdminPixel</title>
+      </Head>
+      <SignUpStyleWrapper className="isoSignUpPage">
+        <div className="isoSignUpContentWrapper">
+          <div className="isoSignUpContent">
+            <div className="isoLogoWrapper">
+              <Link href="/dashboard">
+                <IntlMessages id="page.signUpTitle" />
               </Link>
+            </div>
+
+            <div className="isoSignUpForm">
+              <div className="isoInputWrapper isoLeftRightComponent">
+                <Input size="large" id="firstName" name="firstName" type="text" onChange={handleOnChange} value={credentials.firstName} placeholder="First name" />
+                <Input size="large" id="lastName" name="lastName" type="text" onChange={handleOnChange} value={credentials.lastName} placeholder="Last name" />
+              </div>
+
+              <div className="isoInputWrapper">
+                <Input size="large" id="email" name="email" type="email" onChange={handleOnChange} value={credentials.email} placeholder="Email" />
+              </div>
+
+              <div className="isoInputWrapper">
+                <Input size="large" id="password" name="password" type="password" onChange={handleOnChange} value={credentials.password} placeholder="Password" />
+              </div>
+
+              <div className="isoInputWrapper">
+                <Input size="large" id="confirmPassword" name="confirmPassword" type="password" onChange={handleOnChange} value={credentials.confirmPassword} placeholder="Confirm Password" />
+              </div>
+
+              {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
+
+              <div className="isoInputWrapper">
+                <Button type="primary" onClick={() => handleSignup()}>
+                  <IntlMessages id="page.signUpButton" />
+                </Button>
+              </div>
+
+              <div className="isoInputWrapper isoCenterComponent isoHelperWrapper">
+                <Link href="/signin">
+                  <a>
+                    <IntlMessages id="page.signUpAlreadyAccount" />
+                  </a>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </SignUpStyleWrapper>
+      </SignUpStyleWrapper>
+    </>
   );
 }

@@ -2,7 +2,7 @@
 import { all, takeEvery, put, select } from 'redux-saga/effects';
 import scrumBoardActions from './actions';
 import DemoData from './data';
-import { loadState, saveState } from 'library/helpers/localStorage';
+import { loadState, saveState } from 'utils/helpers/localStorage';
 
 const getScrumBoards = state => state.scrumBoard;
 

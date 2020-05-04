@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Calendar from 'containers/Calendar/Calendar';
-import { withAuthSync } from 'authentication/auth.utils';
-import DashboardLayout from 'containers/DashboardLayout/DashboardLayout';
-export default withAuthSync(() => (
+import Calendar from 'widgets/Calendar/Calendar';
+import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+
+export default () => (
   <>
     <Head>
       <title>Alert</title>
@@ -11,4 +11,4 @@ export default withAuthSync(() => (
       <Calendar />
     </DashboardLayout>
   </>
-));
+);

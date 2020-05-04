@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import { transition } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { transition } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 const MailPagination = styled.div`
   display: -webkit-flex;
   display: -ms-flex;

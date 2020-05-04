@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import WithDirection from 'library/helpers/rtl';
+import WithDirection from 'utils/helpers/rtl';
 const ReactDatesStyleWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;

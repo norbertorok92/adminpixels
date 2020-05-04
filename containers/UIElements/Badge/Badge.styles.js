@@ -2,8 +2,8 @@ import React from 'react';
 import Badges from 'components/uielements/badge';
 import styled from 'styled-components';
 import { palette, font } from 'styled-theme';
-import { borderRadius, boxShadow } from 'library/helpers/style_utils';
-import WithDirection from 'library/helpers/rtl';
+import { borderRadius, boxShadow } from 'utils/helpers/style_utils';
+import WithDirection from 'utils/helpers/rtl';
 
 const AntBadge = props => <Badges {...props} />;
 

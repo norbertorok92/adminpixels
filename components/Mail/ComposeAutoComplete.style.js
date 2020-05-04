@@ -4,7 +4,7 @@ import {
   transition,
   borderRadius,
   boxShadow,
-} from 'library/helpers/style_utils';
+} from 'utils/helpers/style_utils';
 
 const ComposeAutoCompleteStyleWrapper = styled.div`
   .ReactTags__ {

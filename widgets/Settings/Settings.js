@@ -7,7 +7,7 @@ import PageHeader from 'components/utility/pageHeader';
 import IntlMessages from 'components/utility/intlMessages';
 import Box from 'components/utility/box';
 import ColorSwitcher from 'components/ColorSwitcher/ColorSwitcher';
-import LanguageSwitcher from 'containers/LanguageSwitcher/LanguageSwitcher';
+import LanguageSwitcher from 'widgets/LanguageSwitcher/LanguageSwitcher';
 import ContentHolder from 'components/utility/contentHolder';
 import Themes from './config';
 import basicStyle from 'assets/styles/constants';

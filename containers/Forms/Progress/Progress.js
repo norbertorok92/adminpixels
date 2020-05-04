@@ -7,7 +7,7 @@ import LayoutWrapper from 'components/utility/layoutWrapper.js';
 import Box from 'components/utility/box';
 import IntlMessages from 'components/utility/intlMessages';
 import basicStyle from 'assets/styles/constants';
-import { direction } from 'library/helpers/rtl';
+import { direction } from 'utils/helpers/rtl';
 
 export default function() {
   const [percent, setPercent] = React.useState(0);

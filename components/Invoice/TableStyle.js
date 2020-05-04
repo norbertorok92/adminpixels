@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
 import Tables from 'components/uielements/table';
-import { transition } from 'library/helpers/style_utils';
+import { transition } from 'utils/helpers/style_utils';
 
 const Table = styled(Tables)`
   overflow: hidden;

@@ -1,44 +1,60 @@
-import React from 'react';
+import React,  {useState, useEffect} from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { useUser } from 'utils/hooks';
+
 import Input from 'components/uielements/input';
-import Checkbox from 'components/uielements/checkbox';
 import Button from 'components/uielements/button';
 import IntlMessages from 'components/utility/intlMessages';
-import jwtConfig from 'config/jwt.config';
-import Auth0 from 'authentication/Auth0';
-import FirebaseLogin from 'containers/FirebaseForm/FirebaseForm';
-import authActions from 'authentication/actions';
-import SignInStyleWrapper from 'styled/SignIn.styles';
-const { login } = authActions;
-export default function SignInPage(props) {
-  const dispatch = useDispatch();
-  const router = useRouter();
 
-  const handleLogin = e => {
-    e.preventDefault();
-    dispatch(login(true));
+import SignInStyleWrapper from 'styled/SignIn.styles';
+
+
+export default function SignIn() {
+  const router = useRouter();
+  const [user, { mutate }] = useUser();
+  const [errorMsg, setErrorMsg] = useState('');
+  const [credentials, setCredentials] = useState(
+    {
+      email: "",
+      password: ""
+    }
+  );
+
+  useEffect(() => {
+    if (user) {
+      console.log('CICICI');
+      router.replace('/dashboard')
+    };
+  }, [user]);
+
+  const handleOnChange = (e) => {
+    e.persist();
+    setCredentials((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
   };
 
-  const handleJWTLogin = () => {
-    const { jwtLogin, history } = props;
-    const userInfo = {
-      username:
-        (process.browser && document.getElementById('inputUserName').value) ||
-        '',
-      password:
-        (process.browser && document.getElementById('inpuPassword').value) ||
-        '',
-    };
-    // jwtLogin(history, userInfo);
+  const handleLogin = async () => {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    });
+    if (res.status === 200) {
+      const userObj = await res.json();
+      mutate(userObj);
+    } else {
+      setErrorMsg('Incorrect username or password. Try again!');
+    }
   };
 
   return (
     <>
       <Head>
-        <title>SignIn</title>
+        <title>Sign In to AdminPixel</title>
       </Head>
       <SignInStyleWrapper className="isoSignInPage">
         <div className="isoLoginContentWrapper">
@@ -54,68 +70,39 @@ export default function SignInPage(props) {
             <div className="isoSignInForm">
               <div className="isoInputWrapper">
                 <Input
-                  id="inputUserName"
+                  id="email"
+                  name="email"
                   size="large"
-                  placeholder="Username"
-                  defaultValue="demo@gmail.com"
+                  type="text"
+                  placeholder="Email"
+                  onChange={handleOnChange}
+                  value={credentials.email}
                 />
               </div>
 
               <div className="isoInputWrapper">
                 <Input
-                  id="inpuPassword"
+                  id="password"
+                  name="password"
                   size="large"
                   type="password"
                   placeholder="Password"
-                  defaultValue="demodemo"
+                  onChange={handleOnChange}
+                  value={credentials.password}
                 />
               </div>
 
-              <div className="isoInputWrapper isoLeftRightComponent">
-                <Checkbox>
-                  <IntlMessages id="page.signInRememberMe" />
-                </Checkbox>
-                <Button
-                  type="primary"
-                  onClick={jwtConfig.enabled ? handleJWTLogin : handleLogin}
-                >
+              {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
+              <div className="isoInputWrapper">
+                <Button type="primary" onClick={() => handleLogin()}>
                   <IntlMessages id="page.signInButton" />
                 </Button>
               </div>
 
               <p className="isoHelperText">
-                <IntlMessages id="page.signInPreview" />
+                This is a helptext
               </p>
 
-              <div className="isoInputWrapper isoOtherLogin">
-                <Button
-                  onClick={handleLogin}
-                  type="primary"
-                  className="btnFacebook"
-                >
-                  <IntlMessages id="page.signInFacebook" />
-                </Button>
-                <Button
-                  onClick={handleLogin}
-                  type="primary"
-                  className="btnGooglePlus"
-                >
-                  <IntlMessages id="page.signInGooglePlus" />
-                </Button>
-
-                <Button
-                  onClick={() => Auth0.login(handleLogin)}
-                  type="primary"
-                  className="btnAuthZero"
-                >
-                  <IntlMessages id="page.signInAuth0" />
-                </Button>
-
-                <FirebaseLogin
-                  history={router}
-                  login={token => dispatch(login(token))}
-                />
-              </div>
               <div className="isoCenterComponent isoHelperWrapper">
                 <Link href="/forgotpassword">
                   <div className="isoForgotPass">

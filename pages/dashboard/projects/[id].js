@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import CreateBoard from 'containers/ScrumBoard/Board/BoardCreateOrUpdate/BoardCreateOrUpdate';
-import { withAuthSync } from 'authentication/auth.utils';
-import DashboardLayout from 'containers/DashboardLayout/DashboardLayout';
-import ModalRoot from 'containers/ScrumBoard/rootModal';
-import DrawerRoot from 'containers/ScrumBoard/rootDrawer';
+import CreateBoard from 'widgets/ScrumBoard/Board/BoardCreateOrUpdate/BoardCreateOrUpdate';
+import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+import ModalRoot from 'widgets/ScrumBoard/rootModal';
+import DrawerRoot from 'widgets/ScrumBoard/rootDrawer';
 
 import { useRouter } from 'next/router'
 
@@ -25,4 +24,4 @@ const ProjectWithID = () => {
   )
 };
 
-export default withAuthSync(ProjectWithID)
+export default ProjectWithID
