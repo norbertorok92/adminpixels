@@ -2,26 +2,26 @@ export default [
   {
     key: '',
     withoutDashboard: true,
-    path: '/dashboaaaaard',
-    label: 'sidebar.overview',
+    path: '/dashboard',
+    label: 'Overview',
     leftIcon: 'home',
   },
   {
     key: 'profile',
     path: '/profile',
-    label: 'sidebar.profile',
+    label: 'Profile',
     leftIcon: 'user',
   },
   {
     key: 'people',
     path: '/people',
-    label: 'sidebar.people',
+    label: 'People',
     leftIcon: 'people',
   },
   {
     key: 'teams',
     path: '/teams',
-    label: 'sidebar.teams',
+    label: 'Teams',
     leftIcon: 'teams',
   }
 ];

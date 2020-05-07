@@ -52,7 +52,7 @@ const ProfilePage = () => {
         <title>My profile</title>
       </Head>
       <DashboardLayout>
-          {!user ? (
+          {user ? (
             <>
               <Container className="container">
                 <Row justify="space-around" align="middle">

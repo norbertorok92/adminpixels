@@ -1,19 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import clone from 'clone';
 import { Layout } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
-import Menu from 'components/uielements/menu';
-import IntlMessages from 'components/utility/intlMessages';
+import { Menu } from 'antd';
 
 import appActions from 'redux/app/actions';
-import Logo from 'components/utility/Logo.next';
+import Logo from './Logo';
 import SidebarWrapper from './Sidebar.styles';
 import SidebarMenu from './SidebarMenu';
 import SIDEBAR_MENU_OPTIONS from './sidebar.navigations';
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 const { Sider } = Layout;
 const {
   toggleOpenDrawer,
@@ -27,17 +23,16 @@ export default function Sidebar(props) {
     openKeys,
     collapsed,
     openDrawer,
-    height,
+    // height,
     current,
   } = useSelector(state => state.App);
-  const { sidebarTheme } = useSelector(state => state.ThemeSwitcher);
+
   const dispatch = useDispatch();
   function handleClick(e) {
     dispatch(changeCurrent([e.key]));
     if (view === 'MobileView') {
       setTimeout(() => {
         dispatch(toggleCollapsed());
-        // dispatch(toggleOpenDrawer());
       }, 100);
     }
   }
@@ -66,17 +61,6 @@ export default function Sidebar(props) {
 
   const isCollapsed = collapsed && !openDrawer;
   const mode = isCollapsed === true ? 'vertical' : 'inline';
-  const scrollheight = height;
-  const styling = {
-    backgroundColor: sidebarTheme.backgroundColor,
-  };
-  const submenuStyle = {
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    color: sidebarTheme.textColor,
-  };
-  const submenuColor = {
-    color: sidebarTheme.textColor,
-  };
   const onMouseEnter = () => {
     if (collapsed && openDrawer === false) {
       dispatch(toggleOpenDrawer());
@@ -89,6 +73,7 @@ export default function Sidebar(props) {
     }
     return;
   };
+  
   return (
     <SidebarWrapper>
       <Sider
@@ -99,10 +84,8 @@ export default function Sidebar(props) {
         className="pixeladminSidebar"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        style={styling}
       >
         <Logo collapsed={isCollapsed} />
-        {/* <Scrollbars style={{ height: scrollheight - 70 }}> */}
         <Scrollbars style={{ height: `100vh` }}>
           <Menu
             onClick={handleClick}
@@ -117,8 +100,6 @@ export default function Sidebar(props) {
               <SidebarMenu
                 key={option.key}
                 item={option}
-                submenuColor={submenuColor}
-                submenuStyle={submenuStyle}
               />
             ))}
           </Menu>

@@ -1,25 +1,21 @@
-import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
-import { useUser } from 'utils/hooks';
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Avatar, Popover } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { useUser } from "utils/hooks";
+import Link from "next/link";
 
-import Popover from 'components/uielements/popover';
-import TopbarDropdownWrapper from './TopbarDropdown.styles';
-
-import userpic from 'assets/images/user1.png';
+import TopbarDropdownWrapper from "./TopbarDropdown.styles";
 
 export default function TopbarUser() {
   const [user, { mutate }] = useUser();
   const [visible, setVisibility] = useState(false);
-  const dispatch = useDispatch();
   function handleVisibleChange() {
-    setVisibility(visible => !visible);
+    setVisibility((visible) => !visible);
   }
 
   const handleLogout = async () => {
-    await fetch('/api/auth', {
-      method: 'DELETE',
+    await fetch("/api/auth", {
+      method: "DELETE",
     });
     // set the user state to null
     mutate(null);
@@ -27,8 +23,9 @@ export default function TopbarUser() {
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
-      <a className="isoDropdownLink">My Profile</a>
-      <a className="isoDropdownLink">Settings</a>
+      <Link href="/dashboard/profile">
+        <a className="isoDropdownLink">My Profile</a>
+      </Link>
       <a className="isoDropdownLink" onClick={() => handleLogout()}>
         Logout
       </a>

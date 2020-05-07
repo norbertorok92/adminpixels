@@ -11,7 +11,7 @@ const { toggleCollapsed } = appActions;
 
 class Topbar extends Component {
   render() {
-    const { toggleCollapsed } = this.props;
+    const { toggleCollapsed, url } = this.props;
     const collapsed = this.props.collapsed && !this.props.openDrawer;
     const styling = {
       position: 'fixed',
@@ -52,5 +52,8 @@ class Topbar extends Component {
 }
 
 export default connect(
+  state => ({
+    ...state.App
+  }),
   { toggleCollapsed }
 )(Topbar);

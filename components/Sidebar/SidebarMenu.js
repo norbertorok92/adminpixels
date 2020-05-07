@@ -1,16 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { HomeFilled, UserOutlined, TeamOutlined, SkinFilled, ProjectFilled, CalendarOutlined, ProfileOutlined, CheckCircleOutlined, SettingOutlined, SmileOutlined } from '@ant-design/icons';
-import Menu from 'components/uielements/menu';
+import { HomeFilled, UserOutlined, TeamOutlined, SkinFilled, SmileOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import siteConfig from 'config/site.config';
-import IntlMessages from 'components/utility/intlMessages';
 
 const SubMenu = Menu.SubMenu;
 
 export default function SidebarMenu({
   item,
-  submenuStyle,
-  submenuColor,
   ...rest
 }) {
   const { key, label, leftIcon, children } = item;
@@ -37,10 +34,10 @@ export default function SidebarMenu({
       <SubMenu
         key={key}
         title={
-          <span className="isoMenuHolder" style={submenuColor}>
+          <span className="isoMenuHolder">
             {returnIcon(leftIcon)}
             <span className="nav-text">
-              <IntlMessages id={label} />
+              {label}
             </span>
           </span>
         }
@@ -49,11 +46,11 @@ export default function SidebarMenu({
         {children.map(({ key, label, withoutDashboard }) => {
           const linkTo = withoutDashboard ? `/${key}` : `${url}/${key}`;
           return (
-            <Menu.Item style={submenuStyle} key={key}>
+            <Menu.Item key={key}>
               <Link href={linkTo}>
-                <a className="isoMenuHolder" style={submenuColor}>
+                <a className="isoMenuHolder">
                   <span className="nav-text">
-                    <IntlMessages id={label} />
+                    {label}
                   </span>
                 </a>
               </Link>
@@ -66,10 +63,10 @@ export default function SidebarMenu({
   return (
     <Menu.Item key={key} {...rest}>
       <Link href={`${url}/${key}`}>
-        <a className="isoMenuHolder" style={submenuColor}>
+        <a className="isoMenuHolder">
           {returnIcon(leftIcon)}
           <span className="nav-text">
-            <IntlMessages id={label} />
+            {label}
           </span>
         </a>
       </Link>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout } from 'antd';
 
-import Sidebar from 'containers/Sidebar/Sidebar';
-import Topbar from 'containers/Topbar/Topbar';
+import Sidebar from 'components/Sidebar/Sidebar';
+import Topbar from 'components/Topbar/Topbar';
 import siteConfig from 'config/site.config';
 import AppHolder from './DashboardLayout.styles';
 

@@ -1,9 +1,7 @@
 import defaultTheme from './default';
-import customTheme from './custom';
 
 const themes = {
-  defaultTheme,
-  customTheme,
+  defaultTheme
 };
 
 export const themeConfig = {
