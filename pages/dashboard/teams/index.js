@@ -4,9 +4,8 @@ import { Row, Col, Spin, Progress, Card } from "antd";
 
 import Tabs, { TabPane } from "components/uielements/tabs";
 import LayoutContentWrapper from "components/utility/layoutWrapper";
-import DashboardLayout from "widgets/DashboardLayout/DashboardLayout";
+import DashboardLayout from "components/DashboardLayout/DashboardLayout";
 import PageHeader from "components/utility/pageHeader";
-import IntlMessages from "components/utility/intlMessages";
 
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
@@ -21,7 +20,7 @@ import {
 const { rowStyle, colStyle } = basicStyle;
 
 const TeamsTable = ({ teams }) => {
-  console.log("teams", teams);
+
   return (
     <>
       <Head>
@@ -31,7 +30,7 @@ const TeamsTable = ({ teams }) => {
         <DashboardLayout>
           <LayoutContentWrapper>
             <PageHeader>
-              <IntlMessages id="sidebar.teams" />
+              Teams
             </PageHeader>
 
             <Row style={rowStyle} gutter={5} justify="start">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Head from 'next/head';
 import LayoutContentWrapper from 'components/utility/layoutWrapper';
-import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+import DashboardLayout from 'components/DashboardLayout/DashboardLayout';
 import PageHeader from 'components/utility/pageHeader';
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";

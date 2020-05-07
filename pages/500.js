@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
-import IntlMessages from 'components/utility/intlMessages';
 import FiveZeroZeroStyleWrapper from 'styled/500.styles';
 import Image from 'assets/images/rob.png';
 
@@ -10,19 +9,19 @@ function FiveHundred() {
     <FiveZeroZeroStyleWrapper className="iso500Page">
       <div className="iso500Content">
         <h1>
-          <IntlMessages id="page500.title" />
+          500
         </h1>
         <h3>
-          <IntlMessages id="page500.subTitle" />
+          Internal Server Error
         </h3>
         <p>
-          <IntlMessages id="page500.description" />
+          Something went wrong. Please try again later.
         </p>
         <button type="button">
           <Link href="/dashboard">
             <a className="isoMenuHolder">
               <span className="nav-text">
-                <IntlMessages id="page500.backButton" />
+                BACK HOME
               </span>
             </a>
           </Link>
