@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
-import { IntlProvider } from 'react-intl';
+// import { IntlProvider } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import themes from 'config/theme/theme.config';
@@ -30,6 +30,3 @@ export default function AppProvider({ children }) {
     </ConfigProvider>
   );
 }
-
-
-
