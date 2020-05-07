@@ -24,7 +24,6 @@ export default function SignIn() {
 
   useEffect(() => {
     if (user) {
-      console.log('CICICI');
       router.replace('/dashboard')
     };
   }, [user]);

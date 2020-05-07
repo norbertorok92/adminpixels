@@ -30,9 +30,9 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="stylesheet" href="/static/css/ionicons.min.css" />
-          <link rel="stylesheet" href="http://code.ionicframework.com/1.3.3/css/ionic.min.css" />
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+          {/* <link rel="stylesheet" href="/static/css/ionicons.min.css" /> */}
+          {/* <link rel="stylesheet" href="http://code.ionicframework.com/1.3.3/css/ionic.min.css" /> */}
+          {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/> */}
           <link rel="stylesheet" href="/static/css/global.css" />
           <link
             rel="icon"

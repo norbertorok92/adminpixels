@@ -1,8 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-
+import GoogleChart from 'containers/Charts/GoogleChart/GoogleChart';
 import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
-import Widgets from 'widgets/Widgets/Widgets';
 
 export default (() => (
   <>
@@ -10,7 +9,7 @@ export default (() => (
       <title>Home page</title>
     </Head>
     <DashboardLayout>
-      <Widgets />
+      <GoogleChart />
     </DashboardLayout>
   </>
 ));
