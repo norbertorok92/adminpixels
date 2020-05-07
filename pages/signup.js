@@ -6,7 +6,6 @@ import { useUser } from 'utils/hooks';
 
 import Input from 'components/uielements/input';
 import Button from 'components/uielements/button';
-import IntlMessages from 'components/utility/intlMessages';
 
 import SignUpStyleWrapper from 'styled/SignUp.styles';
 
@@ -61,7 +60,7 @@ export default function SignUp() {
           <div className="isoSignUpContent">
             <div className="isoLogoWrapper">
               <Link href="/dashboard">
-                <IntlMessages id="page.signUpTitle" />
+                AdminPixel
               </Link>
             </div>
 
@@ -87,14 +86,14 @@ export default function SignUp() {
 
               <div className="isoInputWrapper">
                 <Button type="primary" onClick={() => handleSignup()}>
-                  <IntlMessages id="page.signUpButton" />
+                  Sign Up
                 </Button>
               </div>
 
               <div className="isoInputWrapper isoCenterComponent isoHelperWrapper">
                 <Link href="/signin">
                   <a>
-                    <IntlMessages id="page.signUpAlreadyAccount" />
+                    Already have an account? Sign in.
                   </a>
                 </Link>
               </div>

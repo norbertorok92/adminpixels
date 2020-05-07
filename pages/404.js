@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
-import IntlMessages from 'components/utility/intlMessages';
 import FourZeroFourStyleWrapper from 'styled/404.styles';
 import Image from 'assets/images/rob.png';
 function FourZeroFour() {
@@ -9,19 +8,19 @@ function FourZeroFour() {
     <FourZeroFourStyleWrapper className="iso404Page">
       <div className="iso404Content">
         <h1>
-          <IntlMessages id="page404.title" />
+          404
         </h1>
         <h3>
-          <IntlMessages id="page404.subTitle" />
+          Looks like you got lost...
         </h3>
         <p>
-          <IntlMessages id="page404.description" />
+          The page you're looking for doesn't exist or has been moved.
         </p>
         <button type="button">
           <Link href="/dashboard">
             <a className="isoMenuHolder">
               <span className="nav-text">
-                <IntlMessages id="page404.backButton" />
+                Bring me back
               </span>
             </a>
           </Link>

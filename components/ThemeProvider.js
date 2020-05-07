@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import themes from 'config/theme/theme.config';
-import useWindowSize from 'utils/hooks/useWindowSize';
+import {useWindowSize} from 'utils/hooks';
 import appActions from 'redux/app/actions';
 
 const { toggleAll } = appActions;

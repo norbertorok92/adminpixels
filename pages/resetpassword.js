@@ -3,7 +3,6 @@ import React from 'react';
 import Link from 'next/link';
 import Input from 'components/uielements/input';
 import Button from 'components/uielements/button';
-import IntlMessages from 'components/utility/intlMessages';
 import ResetPasswordStyleWrapper from 'styled/ResetPassword.styles';
 
 function ResetPassword() {
@@ -15,7 +14,7 @@ function ResetPassword() {
             <Link href="/dashboard">
               <a className="isoMenuHolder">
                 <span className="nav-text">
-                  <IntlMessages id="page.resetPassTitle" />
+                  AdminPixel
                 </span>
               </a>
             </Link>
@@ -23,10 +22,10 @@ function ResetPassword() {
 
           <div className="isoFormHeadText">
             <h3>
-              <IntlMessages id="page.resetPassSubTitle" />
+              Reset Password
             </h3>
             <p>
-              <IntlMessages id="page.resetPassDescription" />
+              Enter new password and confirm it.
             </p>
           </div>
 
@@ -45,7 +44,7 @@ function ResetPassword() {
 
             <div className="isoInputWrapper">
               <Button type="primary">
-                <IntlMessages id="page.resetPassSave" />
+                Save
               </Button>
             </div>
           </div>

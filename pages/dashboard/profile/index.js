@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { Row, Col, Button, Space, Spin, Modal, Tabs } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
-import DashboardLayout from 'widgets/DashboardLayout/DashboardLayout';
+import DashboardLayout from 'components/DashboardLayout/DashboardLayout';
 import Container from './Container/Container';
 import ProfileDetails from './ProfileDetails/ProfileDetails';
 import EditModal from './EditModal/EditModal';

@@ -6,7 +6,6 @@ import { useUser } from 'utils/hooks';
 
 import Input from 'components/uielements/input';
 import Button from 'components/uielements/button';
-import IntlMessages from 'components/utility/intlMessages';
 
 import SignInStyleWrapper from 'styled/SignIn.styles';
 
@@ -61,7 +60,7 @@ export default function SignIn() {
             <div className="isoLogoWrapper">
               <Link href="/dashboard">
                 <a>
-                  <IntlMessages id="page.signInTitle" />
+                  AdminPixel
                 </a>
               </Link>
             </div>
@@ -94,7 +93,7 @@ export default function SignIn() {
               {errorMsg ? <p style={{ color: 'red' }}>{errorMsg}</p> : null}
               <div className="isoInputWrapper">
                 <Button type="primary" onClick={() => handleLogin()}>
-                  <IntlMessages id="page.signInButton" />
+                  Sign In
                 </Button>
               </div>
 
@@ -105,12 +104,12 @@ export default function SignIn() {
               <div className="isoCenterComponent isoHelperWrapper">
                 <Link href="/forgotpassword">
                   <div className="isoForgotPass">
-                    <IntlMessages id="page.signInForgotPass" />
+                    Forgot password
                   </div>
                 </Link>
                 <Link href="/signup">
                   <a>
-                    <IntlMessages id="page.signInCreateAccount" />
+                    Create an account
                   </a>
                 </Link>
               </div>

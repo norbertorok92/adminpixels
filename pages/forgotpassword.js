@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import Input from 'components/uielements/input';
 import Button from 'components/uielements/button';
-import IntlMessages from 'components/utility/intlMessages';
 import ForgotPasswordStyleWrapper from 'styled/ForgotPassword.styles';
 
 function ForgotPassword() {
@@ -16,7 +15,7 @@ function ForgotPassword() {
             <Link href="/dashboard">
               <a className="isoMenuHolder">
                 <span className="nav-text">
-                  <IntlMessages id="page.forgetPassTitle" />
+                  AdminPixel
                 </span>
               </a>
             </Link>
@@ -24,10 +23,10 @@ function ForgotPassword() {
 
           <div className="isoFormHeadText">
             <h3>
-              <IntlMessages id="page.forgetPassSubTitle" />
+              Forgot Password? It could happen to anyone, don't worry.
             </h3>
             <p>
-              <IntlMessages id="page.forgetPassDescription" />
+              Enter your email and we send you a reset link.
             </p>
           </div>
 
@@ -38,7 +37,7 @@ function ForgotPassword() {
 
             <div className="isoInputWrapper">
               <Button type="primary">
-                <IntlMessages id="page.sendRequest" />
+                Send request
               </Button>
             </div>
           </div>
