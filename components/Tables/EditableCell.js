@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from 'components/uielements/input';
-import { Icon } from 'antd';
+import { EditOutlined, CheckOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 export default function(props) {
   const [state, setState] = React.useState({
@@ -26,12 +27,12 @@ export default function(props) {
       {editable ? (
         <div className="isoEditDataWrapper">
           <Input value={value} onChange={handleChange} onPressEnter={check} />
-          <Icon type="check" className="isoEditIcon" onClick={check} />
+          <Button type="link" icon={<CheckOutlined />} className="isoEditIcon" onClick={check} />
         </div>
       ) : (
         <p className="isoDataWrapper">
           {value || ' '}
-          <Icon type="edit" className="isoEditIcon" onClick={edit} />
+          <Button type="link" icon={<EditOutlined />} className="isoEditIcon" onClick={edit} />
         </p>
       )}
     </div>

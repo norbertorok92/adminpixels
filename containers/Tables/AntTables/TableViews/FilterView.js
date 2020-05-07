@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import { FilterDropdown } from 'components/Tables/HelperCells';
 import TableWrapper from '../AntTables.styles';
 
@@ -40,10 +40,7 @@ export default function(props) {
     ...columns[0],
     filterDropdown,
     filterIcon: (
-      <Icon
-        type="search"
-        style={{ color: state.filtered ? '#108ee9' : '#aaa' }}
-      />
+      <SearchOutlined style={{ color: state.filtered ? '#108ee9' : '#aaa' }} />
     ),
     filterDropdownVisible: state.filterDropdownVisible,
     onFilterDropdownVisibleChange: visible => {

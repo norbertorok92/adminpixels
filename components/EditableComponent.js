@@ -1,6 +1,8 @@
 import React from 'react';
 import { Icon } from 'antd';
 import { Textarea as Input } from './uielements/input';
+import { EditOutlined, CheckOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 export default function EditableComponent(props) {
   const [state, setState] = React.useState({
@@ -33,12 +35,12 @@ export default function EditableComponent(props) {
             onChange={handleChange}
             onPressEnter={check}
           />
-          <Icon type="check" className="isoNoteEditIcon" onClick={check} />
+          <Button type="link" icon={<CheckOutlined />} className="isoNoteEditIcon" onClick={check} />
         </div>
       ) : (
         <p className="isoNoteTextWrapper" onClick={edit}>
           {value || ' '}
-          <Icon type="edit" className="isoNoteEditIcon" />
+          <Button type="link" icon={<EditOutlined />} className="isoNoteEditIcon" />
         </p>
       )}
     </div>

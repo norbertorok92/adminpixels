@@ -10,7 +10,7 @@ const path = require('path')
 // next.js custom configuration goes here
 const nextConfig = {
   env: {
-    BACKEND_URL: 'https://localhost:8080',
+   BASE_URL: 'http://localhost:3000',
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
