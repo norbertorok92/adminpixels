@@ -40,8 +40,7 @@ export default class SingleQuestion extends Component {
       correct,
       wrong,
     } = this.props;
-    console.log(activeQuestion, 'active');
-    console.log(total, 'total');
+
     return (
       <div>
         {!this.state.showResult ? (

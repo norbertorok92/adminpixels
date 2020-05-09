@@ -6,9 +6,13 @@ const handler = nextConnect();
 handler.use(withMiddleware);
 
 handler.get(async (req, res) => {
+    const {
+        query: { quizSlug },
+    } = req
+
     try {
-        const todoList = await req.db.collection('todos').find({}).toArray()
-        return res.status(200).send({success: true, data: todoList})
+        const selectedQuiz = await req.db.collection('quiz').findOne({'slug': quizSlug})
+        return res.status(200).send({success: true, data: selectedQuiz})
     } catch (err) {
         res.status(400).send({success: false, error: err});
     }

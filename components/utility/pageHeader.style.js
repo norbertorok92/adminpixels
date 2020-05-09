@@ -7,14 +7,14 @@ const WDComponentTitleWrapper = styled.h1`
   color: ${palette('secondary', 2)};
   width: 100%;
   margin-right: 17px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   white-space: nowrap;
 
   @media only screen and (max-width: 767px) {
     margin: 0 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
   &:before {

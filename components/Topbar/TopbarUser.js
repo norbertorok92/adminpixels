@@ -26,9 +26,11 @@ export default function TopbarUser() {
       <Link href="/dashboard/profile">
         <a className="isoDropdownLink">My Profile</a>
       </Link>
-      <a className="isoDropdownLink" onClick={() => handleLogout()}>
-        Logout
-      </a>
+      <Link href="/signin">
+        <a className="isoDropdownLink" onClick={() => handleLogout()}>
+          Logout
+        </a>
+      </Link>
     </TopbarDropdownWrapper>
   );
 

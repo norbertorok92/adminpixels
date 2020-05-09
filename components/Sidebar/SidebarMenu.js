@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { HomeFilled, UserOutlined, TeamOutlined, SkinFilled, SmileOutlined } from '@ant-design/icons';
+import { HomeFilled, UserOutlined, TeamOutlined, SkinFilled, SmileOutlined, DashboardOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import siteConfig from 'config/site.config';
 
@@ -24,6 +24,8 @@ export default function SidebarMenu({
         return <TeamOutlined />
       case 'teams':
         return <SkinFilled />
+      case 'quiz':
+        return <DashboardOutlined />
       default:
         return <SmileOutlined />;
     }

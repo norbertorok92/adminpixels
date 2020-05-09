@@ -23,5 +23,11 @@ export default [
     path: '/teams',
     label: 'Teams',
     leftIcon: 'teams',
+  },
+  {
+    key: 'quiz',
+    path: '/quiz',
+    label: 'Competency Quiz',
+    leftIcon: 'quiz',
   }
 ];

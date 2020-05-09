@@ -1,16 +1,14 @@
 import nextConnect from 'next-connect';
 import withMiddleware from 'middleware/withMiddleware';
-const ObjectID = require('mongodb').ObjectID;
 
 const handler = nextConnect();
 
 handler.use(withMiddleware);
 
-handler.delete(async (req, res) => {
-  const { query: {todoId} } = req
-  try {
-        await req.db.collection('todos').deleteOne({'_id': new ObjectID(todoId)})
-        res.status(204).send({success: true})
+handler.get(async (req, res) => {
+    try {
+        const quizList = await req.db.collection('quiz-variants').find({}).toArray()
+        return res.status(200).send({success: true, data: quizList})
     } catch (err) {
         res.status(400).send({success: false, error: err});
     }

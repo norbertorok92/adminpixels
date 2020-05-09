@@ -11,6 +11,9 @@ import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
 
+import * as configs from './chart.config';
+import GoogleChart from 'react-google-charts';
+
 import {
   EditOutlined,
   TeamOutlined,
@@ -20,6 +23,12 @@ import {
 const { rowStyle, colStyle } = basicStyle;
 
 const TeamsTable = ({ teams }) => {
+  const chartEvents = [
+      {
+        eventName: 'select',
+        callback(Chart) {},
+      },
+    ];
 
   return (
     <>
@@ -33,9 +42,9 @@ const TeamsTable = ({ teams }) => {
               Teams
             </PageHeader>
 
-            <Row style={rowStyle} gutter={5} justify="start">
+            <Row style={rowStyle} gutter={10} justify="start">
               {teams.data.map((team, idx) => (
-                <Col lg={6} md={12} sm={12} xs={24} style={colStyle} key={idx}>
+                <Col lg={12} md={12} sm={12} xs={24} style={colStyle} key={idx}>
                   <Card
                     actions={[
                       <EyeOutlined key="watch" />,
@@ -49,13 +58,14 @@ const TeamsTable = ({ teams }) => {
 
                     <div className="isoProgressWidgetBody">
                       <p className="isoDescription">{team.description}</p>
-                      <Progress
+                      {/* <Progress
                         strokeColor={{
                           "0%": "#108ee9",
                           "100%": "#87d068",
                         }}
                         percent={team.competencyScore}
-                      />
+                      /> */}
+                      <GoogleChart {...configs.BarChart} chartEvents={chartEvents} />
                     </div>
                   </Card>
                 </Col>

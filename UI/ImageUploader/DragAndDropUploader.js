@@ -40,7 +40,6 @@ const DragAndDropUploader = ({ onUploadChange }) => {
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
         onUploadChange(info.fileList);
       }
       if (status === 'done') {

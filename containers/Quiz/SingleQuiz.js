@@ -27,8 +27,7 @@ function SingleQuiz(props) {
     wrong,
     gettingStarted,
   } = props.quiz;
-  console.log(wrong);
-  console.log(correct);
+
   return (
     <LayoutWrapper>
       <Row style={rowStyle} gutter={gutter} justify="start">
