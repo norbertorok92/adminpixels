@@ -1,37 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import Head from 'next/head';
-
 import { Row, Col, Button, Space, Spin, Modal, Tabs } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout';
 import Container from './Container/Container';
 import ProfileDetails from './ProfileDetails/ProfileDetails';
-import EditModal from './EditModal/EditModal';
 import Navigation from './Profile.styles';
 
-import { useUser } from 'utils/hooks';
+import fetch from "node-fetch";
+import { buildUrl } from "utils/api-utils";
 
-const ProfilePage = () => {
-  const [user] = useUser();
-  const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
-
-  const {email, firstName, lastName, bio} = user || {};
+const ProfilePage = ({userProfile}) => {
+  const {email, firstName, lastName, bio} = userProfile.data || {};
   const { TabPane } = Tabs;
 
-  const displayModal = type => {
-    if (type === 'editModal') {
-      setVisible(true);
-    }
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
-  if (!user) {
+  if (!userProfile) {
     return (
       <div
         style={{
@@ -52,7 +35,7 @@ const ProfilePage = () => {
         <title>My profile</title>
       </Head>
       <DashboardLayout>
-          {user ? (
+          {userProfile ? (
             <>
               <Container className="container">
                 <Row justify="space-around" align="middle">
@@ -62,11 +45,6 @@ const ProfilePage = () => {
                       lastName={lastName}
                       email={email}
                     />
-                  </Col>
-                  <Col xs={24} sm={24} md={4}>
-                    <Button type="primary" icon={<EditOutlined />} onClick={() => displayModal('editModal')}>
-                      Edit Profile
-                    </Button>
                   </Col>
                 </Row>
               </Container>
@@ -88,7 +66,6 @@ const ProfilePage = () => {
 
                 </Container>
               </Navigation> 
-              <EditModal data={user} visible={visible} handleCancel={handleCancel} />
             </>
           ) : (
             <div
@@ -105,6 +82,14 @@ const ProfilePage = () => {
       </DashboardLayout>
     </>
   );
+};
+
+ProfilePage.getInitialProps = async ({ query }) => {
+  const { profileId } = query;
+  const url = buildUrl(`/api/user/${profileId}`);
+  const res = await fetch(url);
+  const userProfile = await res.json();
+  return { userProfile };
 };
 
 export default ProfilePage;

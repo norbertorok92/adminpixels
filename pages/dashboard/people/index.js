@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import Head from 'next/head';
-import LayoutContentWrapper from 'components/utility/layoutWrapper';
-import DashboardLayout from 'components/DashboardLayout/DashboardLayout';
-import PageHeader from 'components/utility/pageHeader';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import LayoutContentWrapper from "components/utility/layoutWrapper";
+import DashboardLayout from "components/DashboardLayout/DashboardLayout";
+import PageHeader from "components/utility/pageHeader";
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
-import { Table, Switch, Radio, Form } from "antd";
+import { Table, Popconfirm, message, Tooltip, Space, Tag } from "antd";
 import {
-  EditOutlined,
-  TeamOutlined,
   EyeOutlined,
   DeleteOutlined,
-  SettingOutlined,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 
-const TeamsTable = ({ users }) => {
+const UsersTable = ({ users }) => {
+  const router = useRouter();
   const showHeader = true;
   const pagination = { position: "bottom" };
   const [state, setState] = useState({
@@ -27,17 +27,21 @@ const TeamsTable = ({ users }) => {
     bottom: "bottomRight",
     xScroll: "fixed",
   });
-
+  const renderFilter = () => {
+    let list = [];
+    users.data.map((user) => {
+      list.push({
+        text: user.firstName,
+        value: user.firstName,
+      });
+    });
+    return list;
+  };
   const columns = [
     {
       title: "First Name",
       dataIndex: "firstName",
-      filters: [
-        {
-          text: "Norbert",
-          value: "Norbert",
-        }
-      ],
+      filters: renderFilter(),
       onFilter: (value, record) => record.firstName.indexOf(value) === 0,
     },
     {
@@ -50,29 +54,84 @@ const TeamsTable = ({ users }) => {
       dataIndex: "email",
     },
     {
+      title: "Team",
+      dataIndex: "memberOfTeams",
+      render: (memberOfTeams) => (
+        <>
+          {memberOfTeams && memberOfTeams.length > 0 ? (
+            memberOfTeams.map((team) => {
+              return <Tag key={team}>{team.toUpperCase()}</Tag>;
+            })
+          ) : (
+            <Tag color="volcano">
+              No Team
+            </Tag>
+          )}
+        </>
+      ),
+    },
+    {
       title: "Action",
       key: "action",
-      render: () => (
-        <span>
-          <EyeOutlined />
-          <DeleteOutlined />
-          <SettingOutlined />
-        </span>
+      render: (record) => (
+        <Space size="middle">
+          <Tooltip title="View Profile">
+            <EyeOutlined
+              onClick={() => onViewProfile(record._id)}
+              key={`${record._id}_view`}
+            />
+          </Tooltip>
+          <Tooltip title="Delete User">
+            <Popconfirm
+              title={`You really want to delete ${record.firstName} ${record.lastName}?`}
+              placement="leftTop"
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+              okText="Yes"
+              cancelText="No"
+              onConfirm={() => onDeleteUser(record._id)}
+              key={`${record._id}_delete`}
+            >
+              <DeleteOutlined style={{ color: "#f83e46" }} />
+            </Popconfirm>
+          </Tooltip>
+        </Space>
       ),
     },
   ];
-
   const scroll = {};
-  if (state.xScroll) {
-    scroll.x = "100vw";
-  }
-
-  const tableColumns = columns;
 
   if (state.xScroll === "fixed") {
     columns[0].fixed = true;
     columns[columns.length - 1].fixed = "right";
-  } 
+  }
+
+  if (state.xScroll) {
+    scroll.x = "100vw";
+  }
+
+  const onReload = () => {
+    router.reload("/dashboard/people");
+  };
+
+  const tableColumns = columns;
+
+  const onViewProfile = (profileId) => {
+    router.replace(`/dashboard/profile/${profileId}`);
+  };
+
+  const onDeleteUser = async (profileId) => {
+    const res = await fetch(`/api/user/${profileId}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (res.status === 204) {
+      message.success("User succesfully deleted!");
+      UsersTable.getInitialProps();
+      onReload();
+    } else {
+      message.error("Ooops! Something went wrong!");
+    }
+  };
 
   return (
     <>
@@ -97,11 +156,11 @@ const TeamsTable = ({ users }) => {
   );
 };
 
-TeamsTable.getInitialProps = async () => {
+UsersTable.getInitialProps = async () => {
   const url = buildUrl("/api/user/all");
   const res = await fetch(url);
   const users = await res.json();
   return { users };
 };
 
-export default TeamsTable;
+export default UsersTable;

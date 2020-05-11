@@ -1,6 +1,7 @@
 import nextConnect from "next-connect";
 import withMiddleware from "middleware/withMiddleware";
 import { extractUser } from "utils/api-utils";
+const ObjectID = require("mongodb").ObjectID;
 
 const handler = nextConnect();
 
@@ -28,18 +29,33 @@ handler.patch(async (req, res) => {
 });
 
 const updateQuizAnswer = async (req, res) => {
-  const { questionSlug, competencySlug, selectedAnswer, isAnswerCorrect } = req.body;
+  const {
+    questionSlug,
+    competencySlug,
+    selectedAnswer,
+    isAnswerCorrect,
+  } = req.body;
+  const currentUser = await req.db
+    .collection("users")
+    .findOne({ _id: new ObjectID(req.user._id) });
+
   const hasAnswerDataThisQuestion = await req.db
     .collection("users")
     .findOne(
-      { "answersData.questionSlug": questionSlug },
-      { "answersData.competencySlug": competencySlug }
+      {
+        $and: [
+          { _id: new ObjectID(req.user._id) },
+          { "answersData.questionSlug": questionSlug },
+          { "answersData.competencySlug": competencySlug }
+        ],
+      }
     );
-
+  
   if (!!hasAnswerDataThisQuestion) {
     await req.db.collection("users").updateOne(
       {
         $and: [
+          { _id: new ObjectID(req.user._id) },
           { "answersData.questionSlug": questionSlug },
           { "answersData.competencySlug": competencySlug },
         ],
@@ -47,41 +63,61 @@ const updateQuizAnswer = async (req, res) => {
       {
         $set: {
           "answersData.$.selectedAnswer": selectedAnswer,
-          "answersData.$.isAnswerCorrect": isAnswerCorrect
+          "answersData.$.isAnswerCorrect": isAnswerCorrect,
         },
       }
     );
-    return res.json({ selectedAnswer: { questionSlug, competencySlug, selectedAnswer, isAnswerCorrect } });
+    return res.json({
+      selectedAnswer: {
+        questionSlug,
+        competencySlug,
+        selectedAnswer,
+        isAnswerCorrect,
+      },
+    });
   } else {
     await req.db.collection("users").updateOne(
-      { _id: req.user._id },
+      { _id: new ObjectID(req.user._id) },
       {
         $addToSet: {
           answersData: {
             questionSlug,
             competencySlug,
             selectedAnswer,
-            isAnswerCorrect
+            isAnswerCorrect,
           },
         },
       }
     );
-    return res.json({ selectedAnswer: { questionSlug, competencySlug, selectedAnswer, isAnswerCorrect } });
+    return res.json({
+      selectedAnswer: {
+        questionSlug,
+        competencySlug,
+        selectedAnswer,
+        isAnswerCorrect,
+      },
+    });
   }
 };
 
 const updateQuiz = async (req, res) => {
   const { quiz } = req.body;
 
-  const competencyAlreadyStarted = await req.db
+  const currentUser = await req.db
     .collection("users")
-    .findOne(
-      { "competencies.slug": quiz.slug }
-    );
+    .findOne({ _id: new ObjectID(req.user._id) });
+
+  const competencyAlreadyStarted =
+    currentUser.competencies && currentUser.competencies.length > 0;
 
   if (!!competencyAlreadyStarted) {
     await req.db.collection("users").updateOne(
-      { "competencies.slug": quiz.slug },
+      { 
+        $and: [
+          { _id: new ObjectID(req.user._id) },
+          { "competencies.slug": quiz.slug }
+        ]
+      },
       {
         $set: {
           "competencies.$.competencyScore": quiz.competencyScore,
@@ -91,7 +127,7 @@ const updateQuiz = async (req, res) => {
     return res.json({ quiz: quiz });
   } else {
     await req.db.collection("users").updateOne(
-      { _id: req.user._id },
+      { _id: new ObjectID(req.user._id) },
       {
         $addToSet: {
           competencies: quiz,
@@ -105,7 +141,7 @@ const updateQuiz = async (req, res) => {
 const updateUserProfile = async (req, res) => {
   const { firstName, lastName, bio } = req.body;
   await req.db.collection("users").updateOne(
-    { _id: req.user._id },
+    { _id: new ObjectID(req.user._id) },
     {
       $set: {
         ...(firstName && { firstName }),

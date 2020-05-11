@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { palette } from 'styled-theme';
 import WithDirection from 'utils/helpers/rtl';
 
-import bgImage from 'assets/images/work.jpg';
+import bgImage from 'assets/images/image4.jpg';
 
 const SignUpStyleWrapper = styled.div`
   width: 100%;

@@ -29,7 +29,7 @@ const Quiz = ({ selectedQuiz }) => {
   const totalQuestions = selectedQuizData.data.length;
   const answersData = user && user.answersData && user.answersData || [];
   const correctAnswers = answersData && answersData.filter(item => item.isAnswerCorrect === true)
-
+  console.log('USER', user)
   const reEvalScore = async (newScore) => {
     const res = await fetch('/api/user', {
       method: 'PATCH',
