@@ -12,3 +12,18 @@ export function extractUser(req) {
     firstName, lastName, email, bio, password, competencies, answersData, teams
   };
 }
+
+export async function doPost(url, data) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({data}),
+  });
+  if (res.success) {
+    return res.status(200).send({ success: true, data: res.data });
+  } else {
+    res.status(400).send({ success: false, error: res.err });
+  }
+};
+
+

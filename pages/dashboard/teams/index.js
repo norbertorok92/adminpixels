@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import Head from "next/head";
-import { Row, Col, Spin, Progress, Card } from "antd";
-
+import { Row, Col, Spin, Card, Modal, Button } from "antd";
+import { useRouter } from "next/router";
 import Tabs, { TabPane } from "components/uielements/tabs";
 import LayoutContentWrapper from "components/utility/layoutWrapper";
 import DashboardLayout from "components/DashboardLayout/DashboardLayout";
@@ -11,24 +11,19 @@ import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
 
-import * as configs from './chart.config';
-import GoogleChart from 'react-google-charts';
-
 import {
-  EditOutlined,
-  TeamOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
 
 const { rowStyle, colStyle } = basicStyle;
 
 const TeamsTable = ({ teams }) => {
-  const chartEvents = [
-      {
-        eventName: 'select',
-        callback(Chart) {},
-      },
-    ];
+  const router = useRouter();
+  const [visible, setVisible] = useState(false);
+
+  const viewTeamProfile = (teamId) => {
+    router.replace(`/dashboard/teams/${teamId}`);
+  }
 
   return (
     <>
@@ -43,30 +38,20 @@ const TeamsTable = ({ teams }) => {
             </PageHeader>
 
             <Row style={rowStyle} gutter={10} justify="start">
+              <Button type="primary" onClick={() => displayModal('editModal')}>
+                Add Team
+              </Button>
+            </Row>
+
+            <Row style={rowStyle} gutter={10} justify="start">
               {teams.data.map((team, idx) => (
                 <Col lg={12} md={12} sm={12} xs={24} style={colStyle} key={idx}>
                   <Card
-                    actions={[
-                      <EyeOutlined key="watch" />,
-                      <EditOutlined key="edit" />,
-                      <TeamOutlined key="ellipsis" />,
-                    ]}
+                    title={team.teamName}
+                    extra={<EyeOutlined key="edit" onClick={() => viewTeamProfile(team._id)} />}
                   >
-                    <div className="isoProgressWidgetTopbar">
-                      <h3>{team.teamName}</h3>
-                    </div>
-
-                    <div className="isoProgressWidgetBody">
-                      <p className="isoDescription">{team.description}</p>
-                      {/* <Progress
-                        strokeColor={{
-                          "0%": "#108ee9",
-                          "100%": "#87d068",
-                        }}
-                        percent={team.competencyScore}
-                      /> */}
-                      <GoogleChart {...configs.BarChart} chartEvents={chartEvents} />
-                    </div>
+                    <p>{team.description}</p>
+                    <p>Members: {team.members.length}</p>
                   </Card>
                 </Col>
               ))}

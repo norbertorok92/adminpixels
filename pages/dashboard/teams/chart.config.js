@@ -51,10 +51,41 @@ export const BarChart = {
         color: "#788195",
       },
     },
-  },
-  chartEvents: [
-    {
-      eventName: "onmouseover",
+  }
+};
+
+export const teamCompetencyChart = {
+  title: "ColumnChart",
+  key: "ColumnChart",
+  chartType: "ColumnChart",
+  width,
+  height,
+  options: {
+    bar: {
+      groupWidth: "95%",
     },
-  ],
+    legend: {
+      position: "none",
+    },
+    animation: {
+      duration: 1000,
+      easing: "in",
+      startup: true,
+    },
+    hAxis: {
+      textStyle: {
+        color: "#788195",
+      },
+    },
+    vAxis: {
+      textStyle: {
+        color: "#788195",
+      },
+    },
+    tooltip: {
+      textStyle: {
+        color: "#788195",
+      },
+    },
+  }
 };
