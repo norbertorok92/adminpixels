@@ -24,7 +24,7 @@ import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
 
-import * as configs from "./chart.config";
+import * as configs from "utils/chart.config";
 import GoogleChart from "react-google-charts";
 
 import {
@@ -94,7 +94,7 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
   };
 
   const onReload = () => {
-    router.reload(`/dashboard/teams/${teamId}`);
+    router.push(`/dashboard/teams/${teamId}`);
   };
 
   const renderCompetencyLevel = (userCompetencies) => {
@@ -112,39 +112,60 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
   };
 
   const renderTeamCompetenciesChart = () => {
-    teamCompetencies.reduce((result, current, index) => {
-      if (result.slug === current.slug) {
-        mergedCompetencies.push({
-          competencySlug: current.slug,
-          competencyTitle: current.title,
-          teamCompetencyScore: result.competencyScore + current.competencyScore,
-          numberOfCompetencies: index + 1,
+    if (teamCompetencies.length > 0) {
+
+      if (teamCompetencies.length > 1) {
+        teamCompetencies.reduce((result, current, index) => {
+          if (result.slug === current.slug) {
+            mergedCompetencies.push({
+              competencySlug: current.slug,
+              competencyTitle: current.title,
+              teamCompetencyScore: result.competencyScore + current.competencyScore,
+              numberOfCompetencies: index + 1,
+            });
+          } else {
+            mergedCompetencies.push({
+              competencySlug: current.slug,
+              competencyTitle: current.title,
+              teamCompetencyScore: current.competencyScore,
+              numberOfCompetencies: index,
+            });
+          }
         });
-      } else {
-        mergedCompetencies.push({
-          competencySlug: current.slug,
-          competencyTitle: current.title,
-          teamCompetencyScore: current.competencyScore,
-          numberOfCompetencies: index,
+
+        mergedCompetencies.map((competency) => {
+          let data = [
+            competency.competencyTitle,
+            competency.teamCompetencyScore / competency.numberOfCompetencies,
+          ];
+          googleChartData.push(data);
         });
+
       }
-    });
 
-    mergedCompetencies.map((competency) => {
-      let data = [
-        competency.competencyTitle,
-        competency.teamCompetencyScore / competency.numberOfCompetencies,
-      ];
-      googleChartData.push(data);
-    });
+      if (teamCompetencies.length === 1) {
+        let data = [
+          teamCompetencies[0].title,
+          teamCompetencies[0].competencyScore,
+        ];
+        googleChartData.push(data);
+      }
 
-    const googleConfig = {
-      ...configs.teamCompetencyChart,
-      data: googleChartData,
-    };
-    console.log('googleConfig', googleConfig)
-    console.log('mergedCompetencies', mergedCompetencies)
-    return <GoogleChart {...googleConfig} />;
+      const googleConfig = {
+        ...configs.teamCompetencyChart,
+        data: googleChartData,
+      };
+
+      return <GoogleChart {...googleConfig} />;
+
+    }
+
+    return (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description="No Competency to evaluate 😥"
+      />
+    )
   };
 
   return (

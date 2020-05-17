@@ -29,10 +29,11 @@ const UsersTable = ({ users }) => {
   });
   const renderFilter = () => {
     let list = [];
-    users.data.map((user) => {
+    users.data.map((user, index) => {
       list.push({
         text: user.firstName,
         value: user.firstName,
+        key: index
       });
     });
     return list;
@@ -59,8 +60,8 @@ const UsersTable = ({ users }) => {
       render: (memberOfTeams) => (
         <>
           {memberOfTeams && memberOfTeams.length > 0 ? (
-            memberOfTeams.map((team) => {
-              return <Tag key={team}>{team.toUpperCase()}</Tag>;
+            memberOfTeams.map((team, index) => {
+              return <Tag key={`${team}_${index}`}>{team.toUpperCase()}</Tag>;
             })
           ) : (
             <Tag color="volcano">
@@ -110,17 +111,17 @@ const UsersTable = ({ users }) => {
   }
 
   const onReload = () => {
-    router.reload("/dashboard/people");
+    router.push("/dashboard/people");
   };
 
   const tableColumns = columns;
 
-  const onViewProfile = (profileId) => {
-    router.replace(`/dashboard/profile/${profileId}`);
+  const onViewProfile = (userId) => {
+    router.replace(`/dashboard/profile/${userId}`);
   };
 
-  const onDeleteUser = async (profileId) => {
-    const res = await fetch(`/api/user/${profileId}`, {
+  const onDeleteUser = async (userId) => {
+    const res = await fetch(`/api/user/${userId}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Row, Col, Card, Button, Spin, message, Progress } from "antd";
@@ -6,6 +6,7 @@ import { Row, Col, Card, Button, Spin, message, Progress } from "antd";
 import LayoutContentWrapper from "components/utility/layoutWrapper";
 import DashboardLayout from "components/DashboardLayout/DashboardLayout";
 import PageHeader from "components/utility/pageHeader";
+import AddNewQuizModal from "./addNewQuizModal";
 
 import basicStyle from "assets/styles/constants";
 import { useUser } from "utils/hooks";
@@ -15,9 +16,18 @@ import { buildUrl } from "utils/api-utils";
 
 const { rowStyle, colStyle, gutter } = basicStyle;
 
+const addNewTeamButtonStyle = {
+  flexDirection: "row-reverse",
+  display: "flex",
+  width: "100%",
+  margin: "0 20px 10px 0",
+};
+
 const CompetencyQuiz = ({ quizList }) => {
   const router = useRouter();
   const [user, { mutate }] = useUser();
+  const [visible, setVisible] = useState(false);
+
   const quizListSlugs = quizList.data;
   const userCompetencies = user && user.competencies;
   let alreadyStartedCompetencyQuizSlugs = [];
@@ -28,6 +38,14 @@ const CompetencyQuiz = ({ quizList }) => {
     userCompetencies.map((competency) => {
       alreadyStartedCompetencyQuizSlugs.push(competency);
     });
+
+  const displayModal = (type) => {
+    setVisible(true);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
   const onStartQuiz = async (quiz, quizStatus) => {
     if (quizStatus === "start") {
@@ -69,12 +87,12 @@ const CompetencyQuiz = ({ quizList }) => {
     const currentQuiz = alreadyStartedCompetencyQuizSlugs.filter(
       (item) => item.slug === quiz.slug
     );
-    console.log("currentQuiz", currentQuiz);
-    if (currentQuiz.length) {
+
+    if (currentQuiz.length > 0) {
       return (
         <>
           <Progress
-            percent={currentQuiz[index].competencyScore}
+            percent={currentQuiz[0] && currentQuiz[0].competencyScore}
             status=""
             style={{ height: "30px" }}
           />
@@ -85,9 +103,9 @@ const CompetencyQuiz = ({ quizList }) => {
       );
     }
     return (
-        <Button type="primary" onClick={() => onStartQuiz(quiz, "start")}>
-          Start Competency Quiz
-        </Button>
+      <Button type="primary" onClick={() => onStartQuiz(quiz, "start")}>
+        Start Competency Quiz
+      </Button>
     );
   };
 
@@ -99,6 +117,12 @@ const CompetencyQuiz = ({ quizList }) => {
       <DashboardLayout>
         <LayoutContentWrapper>
           <PageHeader>Competecy Quizzes</PageHeader>
+
+          <Row style={addNewTeamButtonStyle} justify="start">
+            <Button type="primary" onClick={() => displayModal()}>
+              Add Competency Quiz
+            </Button>
+          </Row>
 
           <Row style={rowStyle} gutter={gutter} justify="start">
             {quizList ? (
@@ -123,6 +147,8 @@ const CompetencyQuiz = ({ quizList }) => {
               </div>
             )}
           </Row>
+
+          <AddNewQuizModal visible={visible} handleCancel={handleCancel} />
         </LayoutContentWrapper>
       </DashboardLayout>
     </>
@@ -130,7 +156,7 @@ const CompetencyQuiz = ({ quizList }) => {
 };
 
 CompetencyQuiz.getInitialProps = async () => {
-  const url = buildUrl("/api/quiz-variants/all");
+  const url = buildUrl("/api/quiz/all");
   const res = await fetch(url);
   const quizList = await res.json();
   return { quizList };

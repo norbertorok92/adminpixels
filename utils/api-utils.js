@@ -1,5 +1,12 @@
+export function isProduction() {
+  const prod = process.env.NODE_ENV === 'production'
+
+  return prod ? 'https://formal-triode-275316.ew.r.appspot.com' : `${process.env.BASE_URL}`
+}
+
 export function buildUrl(path) {
-  return `${process.env.BASE_URL}${path}`
+  const baseUrl = isProduction()
+  return `${baseUrl}${path}`
 }
 
 export function extractUser(req) {

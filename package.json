@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "NODE_ENV=production next start -p 8080",
     "gcp-build": "next build",
-    "deploy": "gcloud config set project formal-triode-275316 && gcloud app deploy app.yaml --version=1-0-0"
+    "deploy": "gcloud config set project formal-triode-275316 && gcloud app deploy app.yaml --version=1-0-1"
   },
   "author": "Norbert Torok <norbert.torok92@gmail.com>",
   "dependencies": {

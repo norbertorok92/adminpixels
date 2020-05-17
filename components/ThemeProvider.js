@@ -17,9 +17,9 @@ export default function AppProvider({ children }) {
   }, [dispatch]);
   return (
     <ConfigProvider >
-      <IntlProvider>
+      {/* <IntlProvider> */}
         <ThemeProvider theme={themes['defaultTheme']}>{children}</ThemeProvider>
-      </IntlProvider>
+      {/* </IntlProvider> */}
     </ConfigProvider>
   );
 }
