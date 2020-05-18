@@ -24,6 +24,7 @@ import LayoutContentWrapper from "components/utility/layoutWrapper";
 import DashboardLayout from "components/DashboardLayout/DashboardLayout";
 import PageHeader from "components/utility/pageHeader";
 
+import { useUser } from "utils/hooks";
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
@@ -52,6 +53,7 @@ const addNewTeamButtonStyle = {
 };
 
 const TeamsTable = ({ teamsList, usersList }) => {
+  const [user] = useUser();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [newTeamData, setNewTeamData] = useState(initialState);
@@ -59,7 +61,7 @@ const TeamsTable = ({ teamsList, usersList }) => {
   const onViewTeamProfile = (teamId) => {
     router.replace(`/dashboard/teams/${teamId}`);
   };
-
+  console.log('user', user)
   const onReload = () => {
     router.push("/dashboard/teams");
     setNewTeamData(initialState);
@@ -139,16 +141,18 @@ const TeamsTable = ({ teamsList, usersList }) => {
       <Head>
         <title>Teams</title>
       </Head>
-      {teamsList.data ? (
+      {user && teamsList.data ? (
         <DashboardLayout>
           <LayoutContentWrapper>
             <PageHeader>Teams</PageHeader>
 
-            <Row style={addNewTeamButtonStyle} justify="start">
-              <Button type="primary" onClick={() => displayModal()}>
-                Add Team
-              </Button>
-            </Row>
+            {user.userRole === "Manager" && (
+              <Row style={addNewTeamButtonStyle} justify="start">
+                <Button type="primary" onClick={() => displayModal()}>
+                  Add Team
+                </Button>
+              </Row>
+            )}
 
             <Row style={rowStyle} gutter={10} justify="start">
               {teamsList.data.map((team, idx) => (
@@ -163,23 +167,25 @@ const TeamsTable = ({ teamsList, usersList }) => {
                             onClick={() => onViewTeamProfile(team._id)}
                           />
                         </Tooltip>
-                        <Tooltip title="Delete Team">
-                          <Popconfirm
-                            title={`You really want to delete ${team.teamName} team?`}
-                            placement="leftTop"
-                            icon={
-                              <QuestionCircleOutlined
-                                style={{ color: "red" }}
-                              />
-                            }
-                            okText="Yes"
-                            cancelText="No"
-                            onConfirm={() => onDeleteTeam(team._id)}
-                            key={`${team._id}_delete`}
-                          >
-                            <DeleteOutlined style={{ color: "#f83e46" }} />
-                          </Popconfirm>
-                        </Tooltip>
+                        {user.userRole === "Manager" && (
+                          <Tooltip title="Delete Team">
+                            <Popconfirm
+                              title={`You really want to delete ${team.teamName} team?`}
+                              placement="leftTop"
+                              icon={
+                                <QuestionCircleOutlined
+                                  style={{ color: "red" }}
+                                />
+                              }
+                              okText="Yes"
+                              cancelText="No"
+                              onConfirm={() => onDeleteTeam(team._id)}
+                              key={`${team._id}_delete`}
+                            >
+                              <DeleteOutlined style={{ color: "#f83e46" }} />
+                            </Popconfirm>
+                          </Tooltip>
+                        )}
                       </Space>
                     }
                   >

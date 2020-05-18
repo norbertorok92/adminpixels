@@ -12,6 +12,7 @@ import {
   Tooltip,
   Popconfirm,
   message,
+  Spin
 } from "antd";
 
 import Tabs, { TabPane } from "components/uielements/tabs";
@@ -20,6 +21,7 @@ import DashboardLayout from "components/DashboardLayout/DashboardLayout";
 import PageHeader from "components/utility/pageHeader";
 import AddNewMembersModal from "./addNewMembersModal";
 
+import { useUser } from "utils/hooks";
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
@@ -38,6 +40,7 @@ const { Panel } = Collapse;
 const { rowStyle, colStyle } = basicStyle;
 
 const TeamProfile = ({ selectedTeam, usersList }) => {
+  const [user] = useUser();
   const router = useRouter();
   const { teamId } = router.query;
   const teamData = selectedTeam.data.teamProfile;
@@ -52,7 +55,7 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
     membersData.map((member) => {
       memberIds.push(member._id);
       if (member.competencies && member.competencies.length > 0) {
-        teamCompetencies.push(member.competencies[0]);
+        teamCompetencies.push(...member.competencies);
       }
     });
 
@@ -113,14 +116,14 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
 
   const renderTeamCompetenciesChart = () => {
     if (teamCompetencies.length > 0) {
-
       if (teamCompetencies.length > 1) {
         teamCompetencies.reduce((result, current, index) => {
-          if (result.slug === current.slug) {
+          if (result && current && result.slug === current.slug) {
             mergedCompetencies.push({
               competencySlug: current.slug,
               competencyTitle: current.title,
-              teamCompetencyScore: result.competencyScore + current.competencyScore,
+              teamCompetencyScore:
+                result.competencyScore + current.competencyScore,
               numberOfCompetencies: index + 1,
             });
           } else {
@@ -128,7 +131,7 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
               competencySlug: current.slug,
               competencyTitle: current.title,
               teamCompetencyScore: current.competencyScore,
-              numberOfCompetencies: index,
+              numberOfCompetencies: 1,
             });
           }
         });
@@ -140,7 +143,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
           ];
           googleChartData.push(data);
         });
-
       }
 
       if (teamCompetencies.length === 1) {
@@ -157,7 +159,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
       };
 
       return <GoogleChart {...googleConfig} />;
-
     }
 
     return (
@@ -165,7 +166,7 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         description="No Competency to evaluate 😥"
       />
-    )
+    );
   };
 
   return (
@@ -175,92 +176,113 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
       </Head>
       <DashboardLayout>
         <LayoutContentWrapper>
-          <Row style={rowStyle} gutter={10} justify="start">
-            <Col span={24} style={colStyle}>
-              <Card
-                title={teamData.teamName}
-                extra={<EditOutlined key="edit" onClick={() => {}} />}
-              >
-                <p>Description: {teamData.description}</p>
-                <Collapse
-                  defaultActiveKey={["0"]}
-                  onChange={() => {}}
-                  expandIconPosition={"left"}
+          {user && teamData ? (
+            <Row style={rowStyle} gutter={10} justify="start">
+              <Col span={24} style={colStyle}>
+                <Card
+                  title={teamData.teamName}
+                  extra={
+                    user.userRole === "Manager" && (
+                      <EditOutlined key="edit" onClick={() => {}} />
+                    )
+                  }
                 >
-                  <Panel
-                    header="Members"
-                    extra={
-                      <Tooltip title="Add New Members">
-                        <PlusOutlined onClick={() => openAddNewMembers()} />
-                      </Tooltip>
-                    }
+                  <p>Description: {teamData.description}</p>
+                  <Collapse
+                    defaultActiveKey={["0"]}
+                    onChange={() => {}}
+                    expandIconPosition={"left"}
                   >
-                    {membersData ? (
-                      <List
-                        itemLayout="horizontal"
-                        dataSource={membersData}
-                        renderItem={(item) => (
-                          <List.Item
-                            actions={[
-                              <Tooltip
-                                placement="topRight"
-                                title={`Remove ${item.firstName} ${item.lastName} from team`}
-                              >
-                                {" "}
-                                <Popconfirm
-                                  title={`You really want to remove ${item.firstName} ${item.lastName} from team?`}
-                                  placement="leftTop"
-                                  icon={
-                                    <QuestionCircleOutlined
-                                      style={{ color: "red" }}
-                                    />
-                                  }
-                                  okText="Yes"
-                                  cancelText="No"
-                                  onConfirm={() => onRemoveMember(item._id)}
-                                  key={`${item._id}_delete`}
-                                >
-                                  <DeleteOutlined
-                                    style={{ color: "#f83e46" }}
-                                  />
-                                </Popconfirm>
-                              </Tooltip>,
-                            ]}
-                          >
-                            <List.Item.Meta
-                              title={
-                                <a href="">
-                                  {item.firstName} {item.lastName}
-                                </a>
-                              }
-                              description={renderCompetencyLevel(
-                                item.competencies
-                              )}
-                            />
-                          </List.Item>
-                        )}
-                      />
-                    ) : (
-                      <Empty
-                        image={Empty.PRESENTED_IMAGE_SIMPLE}
-                        description="No Members"
-                      />
-                    )}
-                  </Panel>
-                  <Panel header="Competencies Avarage Score">
-                    {renderTeamCompetenciesChart()}
-                  </Panel>
-                </Collapse>
-              </Card>
-            </Col>
+                    <Panel
+                      header="Members"
+                      extra={
+                        user.userRole === "Manager" && (
+                          <Tooltip title="Add New Members">
+                            <PlusOutlined onClick={() => openAddNewMembers()} />
+                          </Tooltip>
+                        )
+                      }
+                    >
+                      {membersData ? (
+                        <List
+                          itemLayout="horizontal"
+                          dataSource={membersData}
+                          renderItem={(item) => (
+                            <List.Item
+                              actions={[
+                                user.userRole === "Manager" && (
+                                  <Tooltip
+                                    placement="topRight"
+                                    title={`Remove ${item.firstName} ${item.lastName} from team`}
+                                  >
+                                    {" "}
+                                    <Popconfirm
+                                      title={`You really want to remove ${item.firstName} ${item.lastName} from team?`}
+                                      placement="leftTop"
+                                      icon={
+                                        <QuestionCircleOutlined
+                                          style={{ color: "red" }}
+                                        />
+                                      }
+                                      okText="Yes"
+                                      cancelText="No"
+                                      onConfirm={() => onRemoveMember(item._id)}
+                                      key={`${item._id}_delete`}
+                                    >
+                                      <DeleteOutlined
+                                        style={{ color: "#f83e46" }}
+                                      />
+                                    </Popconfirm>
+                                  </Tooltip>
+                                ),
+                              ]}
+                            >
+                              <List.Item.Meta
+                                title={
+                                  <a href="">
+                                    {item.firstName} {item.lastName}
+                                  </a>
+                                }
+                                description={renderCompetencyLevel(
+                                  item.competencies
+                                )}
+                              />
+                            </List.Item>
+                          )}
+                        />
+                      ) : (
+                        <Empty
+                          image={Empty.PRESENTED_IMAGE_SIMPLE}
+                          description="No Members"
+                        />
+                      )}
+                    </Panel>
+                    <Panel header="Competencies Avarage Score">
+                      {renderTeamCompetenciesChart()}
+                    </Panel>
+                  </Collapse>
+                </Card>
+              </Col>
 
-            <AddNewMembersModal
-              visible={state.addNewMemberModal}
-              handleCancel={() => handleCancel()}
-              usersList={usersNotJoined}
-              teamId={teamId}
-            />
-          </Row>
+              <AddNewMembersModal
+                visible={state.addNewMemberModal}
+                handleCancel={() => handleCancel()}
+                usersList={usersNotJoined}
+                teamId={teamId}
+              />
+            </Row>
+          ) : (
+            <div
+              style={{
+                minHeight: "150px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Spin />
+            </div>
+          )}
         </LayoutContentWrapper>
       </DashboardLayout>
     </>

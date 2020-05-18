@@ -107,11 +107,6 @@ export default function SignIn() {
                     Forgot password
                   </div>
                 </Link>
-                <Link href="/signup">
-                  <a>
-                    Create an account
-                  </a>
-                </Link>
               </div>
             </div>
           </div>

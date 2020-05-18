@@ -12,11 +12,11 @@ export function buildUrl(path) {
 export function extractUser(req) {
   if (!req.user) return null;
   const {
-    firstName, lastName, email, bio, password, competencies, answersData, teams
+    firstName, lastName, email, bio, password, competencies, answersData, teams, userRole
   } = req.user;
 
   return {
-    firstName, lastName, email, bio, password, competencies, answersData, teams
+    firstName, lastName, email, bio, password, competencies, answersData, teams, userRole
   };
 }
 

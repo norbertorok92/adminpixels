@@ -117,12 +117,13 @@ const CompetencyQuiz = ({ quizList }) => {
       <DashboardLayout>
         <LayoutContentWrapper>
           <PageHeader>Competecy Quizzes</PageHeader>
-
-          <Row style={addNewTeamButtonStyle} justify="start">
-            <Button type="primary" onClick={() => displayModal()}>
-              Add Competency Quiz
-            </Button>
-          </Row>
+          {user.userRole === "Manager" && (
+            <Row style={addNewTeamButtonStyle} justify="start">
+              <Button type="primary" onClick={() => displayModal()}>
+                Add Competency Quiz
+              </Button>
+            </Row>
+          )}
 
           <Row style={rowStyle} gutter={gutter} justify="start">
             {quizList ? (
