@@ -10,20 +10,24 @@ handler.use(withMiddleware);
 handler.post(async (req, res) => {
   const teamName = req.body.teamName;
   const description = req.body.description;
-  const competencyScore = req.body.competencyScore;
-  const members = [];
+  const members = req.body.members || [];
+
+  // if (!teamName || !description) {
+  //   res.status(400).send('Missing required field(s)');
+  //   return;
+  // }
 
   try {
     const user = await req.db
       .collection("teams")
-      .insertOne({ teamName, description, competencyScore, members })
+      .insertOne({ teamName, description, members })
       .then(({ ops }) => ops[0]);
 
     res
       .status(201)
       .json({
         success: true,
-        team: { teamName, description, competencyScore, members },
+        team: { teamName, description, members },
       });
   } catch (err) {
     res.status(400).send({ success: false, error: err });

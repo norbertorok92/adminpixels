@@ -40,9 +40,15 @@ handler.delete(async (req, res) => {
   const {
     query: { teamId },
   } = req;
-
   try {
+    const teamToDelete = await req.db.collection("teams").findOne({ _id: new ObjectID(teamId) });
+    const teamName = teamToDelete.teamName
+
     await req.db.collection("teams").deleteOne({ _id: new ObjectID(teamId) });
+    await req.db
+      .collection("users")
+      .update({}, { $pull: { memberOfTeams: { $in: [teamName] } } }, { multi: true });
+
     return res.status(204).send({ success: true });
   } catch (err) {
     res.status(400).send({ success: false, error: err });

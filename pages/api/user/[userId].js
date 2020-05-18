@@ -28,9 +28,12 @@ handler.delete(async (req, res) => {
   } = req;
 
   try {
+    await req.db.collection("users").deleteOne({ _id: new ObjectID(userId) });
+
     await req.db
-      .collection("users")
-      .deleteOne({ '_id': new ObjectID(userId) });
+      .collection("teams")
+      .update({}, { $pull: { members: { $in: [userId] } } }, { multi: true });
+
     return res.status(204).send({ success: true });
   } catch (err) {
     res.status(400).send({ success: false, error: err });

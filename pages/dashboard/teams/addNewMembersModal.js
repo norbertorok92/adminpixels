@@ -61,7 +61,7 @@ const AddNewMembersModal = ({visible, handleCancel, usersList, teamId}) => {
     handleCancel()
   }
   const onReload = () => {
-    router.reload(`/dashboard/teams/${teamId}`);
+    router.push(`/dashboard/teams/${teamId}`);
   }
 
   return (

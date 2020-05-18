@@ -215,3 +215,7 @@ html[dir='rtl'] .dz-hidden-input {
 .ant-modal-wrap.instagram-modal .ant-modal-content .ant-modal-body {
   padding: 0;
 }
+
+.add-quiz-modal .ant-card-body {
+  width: 100% !important;
+}

@@ -22,7 +22,7 @@ export default function SignIn() {
   );
 
   useEffect(() => {
-    if (user) {
+    if (user && user.email) {
       router.replace('/dashboard')
     };
   }, [user]);
@@ -106,11 +106,6 @@ export default function SignIn() {
                   <div className="isoForgotPass">
                     Forgot password
                   </div>
-                </Link>
-                <Link href="/signup">
-                  <a>
-                    Create an account
-                  </a>
                 </Link>
               </div>
             </div>

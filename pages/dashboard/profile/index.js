@@ -31,21 +31,6 @@ const ProfilePage = () => {
     setVisible(false);
   };
 
-  if (!user) {
-    return (
-      <div
-        style={{
-          minHeight: '150px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Spin />
-      </div>
-    );
-  }
-
   return (
     <>
       <Head>

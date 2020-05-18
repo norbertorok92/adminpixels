@@ -24,12 +24,13 @@ const Quiz = ({ selectedQuiz }) => {
   const [state, setState] = useState({
     isAnswerCorrect: ""
   });
+
   const { quizSlug } = router.query;
   const selectedQuizData = selectedQuiz && selectedQuiz.data;
   const totalQuestions = selectedQuizData.data.length;
   const answersData = user && user.answersData && user.answersData || [];
-  const correctAnswers = answersData && answersData.filter(item => item.isAnswerCorrect === true)
-  console.log('USER', user)
+  const correctAnswers = answersData && answersData.filter(item => item.competencySlug === quizSlug && item.isAnswerCorrect === true)
+
   const reEvalScore = async (newScore) => {
     const res = await fetch('/api/user', {
       method: 'PATCH',
@@ -80,6 +81,7 @@ const Quiz = ({ selectedQuiz }) => {
 
   const renderQuestion = (quizItem, index) => {
     const currentItem = answersData && answersData.find(item => item.questionSlug === quizItem.slug) || []
+
     return (
       <Panel header={quizItem.question} key={index} extra={genExtra(currentItem && currentItem.isAnswerCorrect)}>
         {quizItem.type === "single" ? (

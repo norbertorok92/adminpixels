@@ -35,22 +35,23 @@ const updateQuizAnswer = async (req, res) => {
     selectedAnswer,
     isAnswerCorrect,
   } = req.body;
+
+  console.log('req.body', req.body)
+
   const currentUser = await req.db
     .collection("users")
     .findOne({ _id: new ObjectID(req.user._id) });
 
-  const hasAnswerDataThisQuestion = await req.db
-    .collection("users")
-    .findOne(
-      {
-        $and: [
-          { _id: new ObjectID(req.user._id) },
-          { "answersData.questionSlug": questionSlug },
-          { "answersData.competencySlug": competencySlug }
-        ],
-      }
-    );
-  
+  const hasAnswerDataThisQuestion = await req.db.collection("users").findOne({
+    $and: [
+      { _id: new ObjectID(req.user._id) },
+      { "answersData.questionSlug": questionSlug },
+      { "answersData.competencySlug": competencySlug },
+    ],
+  });
+
+  console.log('hasAnswerDataThisQuestion', hasAnswerDataThisQuestion)
+
   if (!!hasAnswerDataThisQuestion) {
     await req.db.collection("users").updateOne(
       {
@@ -107,16 +108,17 @@ const updateQuiz = async (req, res) => {
     .collection("users")
     .findOne({ _id: new ObjectID(req.user._id) });
 
-  const competencyAlreadyStarted =
-    currentUser.competencies && currentUser.competencies.length > 0;
+  const competencyAlreadyStarted = currentUser.competencies && currentUser.competencies.filter(
+    (item) => item.slug === quiz.slug
+  );
 
-  if (!!competencyAlreadyStarted) {
+  if (competencyAlreadyStarted.length > 0) {
     await req.db.collection("users").updateOne(
-      { 
+      {
         $and: [
           { _id: new ObjectID(req.user._id) },
-          { "competencies.slug": quiz.slug }
-        ]
+          { "competencies.slug": quiz.slug },
+        ],
       },
       {
         $set: {
