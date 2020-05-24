@@ -61,7 +61,7 @@ const TeamsTable = ({ teamsList, usersList }) => {
   const onViewTeamProfile = (teamId) => {
     router.replace(`/dashboard/teams/${teamId}`);
   };
-  console.log('user', user)
+
   const onReload = () => {
     router.push("/dashboard/teams");
     setNewTeamData(initialState);

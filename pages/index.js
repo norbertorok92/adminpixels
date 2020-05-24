@@ -22,7 +22,7 @@ export default function SignIn() {
   );
 
   useEffect(() => {
-    if (user) {
+    if (user && user.email) {
       router.replace('/dashboard')
     };
   }, [user]);

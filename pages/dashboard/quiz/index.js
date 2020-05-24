@@ -88,7 +88,7 @@ const CompetencyQuiz = ({ quizList }) => {
       (item) => item.slug === quiz.slug
     );
 
-    if (currentQuiz.length > 0) {
+    if (!!currentQuiz.length) {
       return (
         <>
           <Progress
@@ -115,42 +115,55 @@ const CompetencyQuiz = ({ quizList }) => {
         <title>Competecy Quizzes</title>
       </Head>
       <DashboardLayout>
-        <LayoutContentWrapper>
-          <PageHeader>Competecy Quizzes</PageHeader>
-          {user.userRole === "Manager" && (
-            <Row style={addNewTeamButtonStyle} justify="start">
-              <Button type="primary" onClick={() => displayModal()}>
-                Add Competency Quiz
-              </Button>
-            </Row>
-          )}
-
-          <Row style={rowStyle} gutter={gutter} justify="start">
-            {quizList ? (
-              quizList.data.map((quiz, index) => (
-                <Col md={8} sm={24} xs={24} style={colStyle} key={index}>
-                  <Card bordered={false} title={quiz.title}>
-                    <p>{quiz.description}</p>
-                    {renderButton(quiz, index)}
-                  </Card>
-                </Col>
-              ))
-            ) : (
-              <div
-                style={{
-                  minHeight: "150px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Spin />
-              </div>
+        {user && quizList ? (
+          <LayoutContentWrapper>
+            <PageHeader>Competecy Quizzes</PageHeader>
+            {user.userRole === "Manager" && (
+              <Row style={addNewTeamButtonStyle} justify="start">
+                <Button type="primary" onClick={() => displayModal()}>
+                  Add Competency Quiz
+                </Button>
+              </Row>
             )}
-          </Row>
 
-          <AddNewQuizModal visible={visible} handleCancel={handleCancel} />
-        </LayoutContentWrapper>
+            <Row style={rowStyle} gutter={gutter} justify="start">
+              {quizList ? (
+                quizList.data.map((quiz, index) => (
+                  <Col md={8} sm={24} xs={24} style={colStyle} key={index}>
+                    <Card bordered={false} title={quiz.title}>
+                      <p>{quiz.description}</p>
+                      {renderButton(quiz, index)}
+                    </Card>
+                  </Col>
+                ))
+              ) : (
+                <div
+                  style={{
+                    minHeight: "150px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Spin />
+                </div>
+              )}
+            </Row>
+
+            <AddNewQuizModal visible={visible} handleCancel={handleCancel} />
+          </LayoutContentWrapper>
+        ) : (
+          <div
+            style={{
+              minHeight: "150px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Spin />
+          </div>
+        )}
       </DashboardLayout>
     </>
   );

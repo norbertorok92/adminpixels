@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Avatar, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useUser } from "utils/hooks";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 import TopbarDropdownWrapper from "./TopbarDropdown.styles";
 
 export default function TopbarUser() {
+  const router = useRouter();
   const [user, { mutate }] = useUser();
   const [visible, setVisibility] = useState(false);
   function handleVisibleChange() {
@@ -19,6 +21,7 @@ export default function TopbarUser() {
     });
     // set the user state to null
     mutate(null);
+    router.replace("/signin");
   };
 
   const content = (
@@ -26,11 +29,9 @@ export default function TopbarUser() {
       <Link href="/dashboard/profile">
         <a className="isoDropdownLink">My Profile</a>
       </Link>
-      <Link href="/signin">
-        <a className="isoDropdownLink" onClick={() => handleLogout()}>
-          Logout
-        </a>
-      </Link>
+      <a className="isoDropdownLink" onClick={() => handleLogout()}>
+        Logout
+      </a>
     </TopbarDropdownWrapper>
   );
 

@@ -49,7 +49,7 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
         form.resetFields();
       })
       .catch((info) => {
-        console.log("Validate Failed:", info);
+        console.warn("Validate Failed:", info);
       });
   };
 
@@ -94,7 +94,7 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
         });
       })
       .catch((info) => {
-        console.log("Validate Failed:", info);
+        console.warn("Validate Failed:", info);
       });
   };
 

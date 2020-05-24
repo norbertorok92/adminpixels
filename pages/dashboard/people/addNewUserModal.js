@@ -36,7 +36,7 @@ const AddNewUserModal = ({ visible, handleCancel }) => {
         handleUserCreation(values);
       })
       .catch((info) => {
-        console.log("Validate Failed:", info);
+        console.warn("Validate Failed:", info);
       });
   };
 

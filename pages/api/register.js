@@ -10,8 +10,7 @@ const handler = nextConnect();
 handler.use(withMiddleware);
 
 handler.post(async (req, res) => {
-  const { firstName, lastName, userRole, password, confirmPassword } = req.body;
-  const email = normalizeEmail(req.body.email);
+  const { firstName, lastName, userRole, password, confirmPassword, email } = req.body;
 
   if ((await req.db.collection("users").countDocuments({ email })) > 0) {
     res.status(403).send("The email has already been used.");

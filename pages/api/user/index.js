@@ -36,8 +36,6 @@ const updateQuizAnswer = async (req, res) => {
     isAnswerCorrect,
   } = req.body;
 
-  console.log('req.body', req.body)
-
   const currentUser = await req.db
     .collection("users")
     .findOne({ _id: new ObjectID(req.user._id) });
@@ -49,8 +47,6 @@ const updateQuizAnswer = async (req, res) => {
       { "answersData.competencySlug": competencySlug },
     ],
   });
-
-  console.log('hasAnswerDataThisQuestion', hasAnswerDataThisQuestion)
 
   if (!!hasAnswerDataThisQuestion) {
     await req.db.collection("users").updateOne(
@@ -112,7 +108,7 @@ const updateQuiz = async (req, res) => {
     (item) => item.slug === quiz.slug
   );
 
-  if (competencyAlreadyStarted.length > 0) {
+  if (currentUser.competencies && competencyAlreadyStarted.length > 0) {
     await req.db.collection("users").updateOne(
       {
         $and: [

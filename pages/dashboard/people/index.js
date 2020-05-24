@@ -181,7 +181,7 @@ const UsersTable = ({ users }) => {
       message.error("Ooops! Something went wrong!");
     }
   };
-  console.log("user", user);
+
   return (
     <>
       <Head>
