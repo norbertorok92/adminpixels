@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Row, Col, Card, Button, Spin, message, Progress } from "antd";
@@ -27,6 +27,27 @@ const CompetencyQuiz = ({ quizList }) => {
   const router = useRouter();
   const [user, { mutate }] = useUser();
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, []);
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          minHeight: "150px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
 
   const quizListSlugs = quizList.data;
   const userCompetencies = user && user.competencies;
@@ -116,7 +137,7 @@ const CompetencyQuiz = ({ quizList }) => {
         <title>Competecy Quizzes</title>
       </Head>
       <DashboardLayout>
-        {user && quizList ? (
+        {quizList ? (
           <LayoutContentWrapper>
             <PageHeader>Competecy Quizzes</PageHeader>
             {user.userRole === "Manager" && (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import {
   Row,
@@ -57,6 +57,12 @@ const TeamsTable = ({ teamsList, usersList }) => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [newTeamData, setNewTeamData] = useState(initialState);
+
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, []);
 
   const onViewTeamProfile = (teamId) => {
     router.replace(`/dashboard/teams/${teamId}`);

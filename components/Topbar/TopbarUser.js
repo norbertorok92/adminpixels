@@ -22,8 +22,8 @@ export default function TopbarUser() {
       method: "DELETE",
     });
     // set the user state to null
-    mutate(null);
     router.replace("/signin");
+    mutate(null);
   };
 
   const content = (

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Row, Col, Card, Collapse, Typography, Spin, Space } from "antd";
 import PageHeader from "components/utility/pageHeader";
 import Box from "components/utility/box";
@@ -8,6 +9,7 @@ import ContentHolder from "components/utility/contentHolder";
 import basicStyle from "assets/styles/constants";
 import * as configs from "./chartConfig";
 import GoogleChart from "react-google-charts";
+import { useUser } from "utils/hooks";
 
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
@@ -21,6 +23,8 @@ const { Text } = Typography;
 const { rowStyle, colStyle, gutter } = basicStyle;
 
 const Dashboard = ({ allUsers }) => {
+  const [user] = useUser();
+  const router = useRouter();
   const googleTreeChartData = [
     [
       "CATEGORY",
@@ -40,6 +44,27 @@ const Dashboard = ({ allUsers }) => {
         peopleCompetencies.push(...user.competencies);
       }
     });
+
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, []);
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          minHeight: "150px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
 
   const renderTreeMapChart = () => {
     let categories = [];

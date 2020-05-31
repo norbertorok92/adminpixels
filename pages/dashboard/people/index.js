@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import LayoutContentWrapper from "components/utility/layoutWrapper";
@@ -44,6 +44,12 @@ const UsersTable = ({ users }) => {
     bottom: "bottomRight",
     // xScroll: "fixed",
   });
+
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, []);
 
   const displayModal = (type) => {
     setVisible(true);

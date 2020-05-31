@@ -44,10 +44,17 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
   const [user] = useUser();
   const router = useRouter();
   const { teamId } = router.query;
-  const teamData = selectedTeam.data.teamProfile;
-  const membersData = selectedTeam.data.teamMembersData;
+  
+  useEffect(() => {
+    if (!user && !selectedTeam.data) {
+      router.replace("/");
+    }
+  }, []);
+
+  const teamData = selectedTeam.data && selectedTeam.data.teamProfile;
+  const membersData = selectedTeam.data && selectedTeam.data.teamMembersData;
   const usersListData = usersList.data;
-  const teamMembers = teamData.members;
+  const teamMembers = teamData && teamData.members;
   const googleChartData = [["Competency", "Score"]];
   let memberIds = [];
   let teamCompetencies = [];
@@ -145,7 +152,9 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
 
       quizScoreCount.map((quiz) => {
         if (quiz[1] !== 0) {
-          let quizCount = quizzesCount[quiz[0]];
+          const regExp = /\(([^)]+)\)/;
+          let quizName = quiz[0].replace(/\(([^)]+)\)/, "")
+          let quizCount = quizzesCount[quizName];
           let quizAvg = quiz[1] / quizCount;
           return googleChartData.push([quiz[0], quizAvg]);
         }
@@ -159,35 +168,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
       return <GoogleChart {...googleConfig} />;
     }
 
-    // if (teamCompetencies.length > 0) {
-    //   if (teamCompetencies.length > 1) {
-    //     mergedCompetencies = mergeCompetencies(teamCompetencies)
-
-    //     mergedCompetencies.map((competency) => {
-    //       let data = [
-    //         competency.competencyTitle,
-    //         competency.teamCompetencyScore / competency.numberOfCompetencies,
-    //       ];
-    //       googleChartData.push(data);
-    //     });
-    //   }
-
-    //   if (teamCompetencies.length === 1) {
-    //     let data = [
-    //       teamCompetencies[0].title,
-    //       teamCompetencies[0].competencyScore,
-    //     ];
-    //     googleChartData.push(data);
-    //   }
-
-    //   // const googleConfig = {
-    //   //   ...configs.teamCompetencyChart,
-    //   //   data: googleChartData,
-    //   // };
-
-    //   // return <GoogleChart {...googleConfig} />;
-    // }
-
     return (
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -195,6 +175,21 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
       />
     );
   };
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          minHeight: "150px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
 
   return (
     <>

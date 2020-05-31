@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Head from 'next/head';
+import { useRouter } from "next/router";
 import { Row, Col, Button, Space, Spin, Modal, Tabs, Progress, Divider } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import DashboardLayout from 'components/DashboardLayout/DashboardLayout';
@@ -9,12 +10,21 @@ import Navigation from './Profile.styles';
 
 import fetch from "node-fetch";
 import { buildUrl } from "utils/api-utils";
+import { useUser } from "utils/hooks";
 
 const ProfilePage = ({userProfile}) => {
+  const [user] = useUser();
+  const router = useRouter();
   const {email, firstName, lastName, bio, competencies} = userProfile.data || {};
   const { TabPane } = Tabs;
 
-  if (!userProfile) {
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, []);
+
+  if (!user || !userProfile) {
     return (
       <div
         style={{
