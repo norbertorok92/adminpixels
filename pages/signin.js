@@ -97,17 +97,6 @@ export default function SignIn() {
                 </Button>
               </div>
 
-              <p className="isoHelperText">
-                This is a helptext
-              </p>
-
-              <div className="isoCenterComponent isoHelperWrapper">
-                <Link href="/forgotpassword">
-                  <div className="isoForgotPass">
-                    Forgot password
-                  </div>
-                </Link>
-              </div>
             </div>
           </div>
         </div>

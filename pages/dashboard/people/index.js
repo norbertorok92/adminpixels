@@ -95,7 +95,7 @@ const UsersTable = ({ users }) => {
       key: "userRole",
       width: 100,
       render: (userRole) => (
-        <>{userRole === 'member' ? <Tag color="#87d068">{userRole}</Tag> : <Tag color="#2db7f5">{userRole}</Tag>}</>
+        <>{userRole === 'Manager' ? <Tag color="#87d068">{userRole}</Tag> : <Tag color="#2db7f5">{userRole}</Tag>}</>
       ),
     },
     {

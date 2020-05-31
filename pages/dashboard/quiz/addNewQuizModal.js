@@ -30,6 +30,7 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
   const [formState, setFormState] = useState({
     title: "",
     description: "",
+    category: "",
     data: [],
   });
 
@@ -81,7 +82,7 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
         Object.entries(selectedQuiz).map((options, index) => {
           if (options[0].includes("option") && !!options[1]) {
             validAnswerOptions.push(
-              <Select.Option key={options[1] + index}>
+              <Select.Option key={options[1] + index} value={options[1]}>
                 {options[1]}
               </Select.Option>
             );
@@ -132,7 +133,8 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
       ...prev,
       data: data,
       title: formValues.title,
-      description: formValues.description
+      description: formValues.description,
+      category: formValues.category
     }));
   };
 
@@ -192,6 +194,26 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
           ]}
         >
           <Input placeholder="Quiz description" />
+        </Form.Item>
+
+        <Form.Item
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: "Please select a quiz category!",
+            },
+          ]}
+        >
+          <Select  placeholder="Select a quiz category">
+            <Option value="frontEnd">Front End</Option>
+            <Option value="backEnd">Back End</Option>
+            <Option value="dataBases">Databases</Option>
+            <Option value="qa">QA</Option>
+            <Option value="management">Management</Option>
+            <Option value="hr">HR</Option>
+            <Option value="softSkills">Soft Skills</Option>
+          </Select>
         </Form.Item>
 
         <Form.List name="quiz">
@@ -353,6 +375,7 @@ const addNewQuizModal = ({ visible, handleCancel }) => {
                               <Button
                                 type="primary"
                                 onClick={() => onSaveQuizQuestion(index)}
+                                disabled={answerOptionsState.saved}
                                 style={{
                                   width: "100%",
                                 }}

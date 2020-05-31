@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }) {
           <Layout
             className="isoContentMainLayout"
             style={{
-              height: '100vh',
+              height: 'calc(100vh - -70px)',
             }}
           >
             <Content

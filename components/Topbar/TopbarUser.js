@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Avatar, Popover } from "antd";
+import { Avatar, Popover, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useUser } from "utils/hooks";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 import TopbarDropdownWrapper from "./TopbarDropdown.styles";
+
+const { Text } = Typography;
 
 export default function TopbarUser() {
   const router = useRouter();
@@ -26,6 +28,7 @@ export default function TopbarUser() {
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
+      <Text strong> <a className="isoDropdownLink">Logged in as: {user.firstName}</a></Text>
       <Link href="/dashboard/profile">
         <a className="isoDropdownLink">My Profile</a>
       </Link>

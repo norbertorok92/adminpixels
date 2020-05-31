@@ -27,6 +27,7 @@ import { buildUrl } from "utils/api-utils";
 import basicStyle from "assets/styles/constants";
 
 import * as configs from "utils/chart.config";
+import {mergeCompetencies} from "utils/utils";
 import GoogleChart from "react-google-charts";
 
 import {
@@ -103,55 +104,52 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
   const renderCompetencyLevel = (userCompetencies) => {
     if (userCompetencies && userCompetencies.length > 0) {
       return userCompetencies.map((competency, index) => {
-        return (
-          <span key={`${competency.title}_${index}`}>
-            <p>{competency.title}</p>
-            <Progress percent={competency.competencyScore} size="small" />
-          </span>
-        );
+        if(competency.competencyScore !== 0) {
+          return (
+            <span key={`${competency.title}_${index}`}>
+              <p>{competency.title}({competency.category.toUpperCase()})</p>
+              <Progress percent={competency.competencyScore} size="small" />
+            </span>
+          );
+        }
       });
     }
     return <p>User has no competency quizzes started.</p>;
   };
 
   const renderTeamCompetenciesChart = () => {
-    if (teamCompetencies.length > 0) {
-      if (teamCompetencies.length > 1) {
-        teamCompetencies.reduce((result, current, index) => {
-          if (result && current && result.slug === current.slug) {
-            mergedCompetencies.push({
-              competencySlug: current.slug,
-              competencyTitle: current.title,
-              teamCompetencyScore:
-                result.competencyScore + current.competencyScore,
-              numberOfCompetencies: index + 1,
-            });
-          } else {
-            mergedCompetencies.push({
-              competencySlug: current.slug,
-              competencyTitle: current.title,
-              teamCompetencyScore: current.competencyScore,
-              numberOfCompetencies: 1,
-            });
-          }
-        });
+    let quizzes = [];
+    let quizScores = [];
+    let quizzesCount = {};
 
-        mergedCompetencies.map((competency) => {
-          let data = [
-            competency.competencyTitle,
-            competency.teamCompetencyScore / competency.numberOfCompetencies,
-          ];
-          googleChartData.push(data);
-        });
-      }
+     if (teamCompetencies.length > 0) {
+      teamCompetencies.map((competency, index) => {
+        quizzes.push(competency.title.toUpperCase());
+        quizScores.push([
+          `${competency.title.toUpperCase()}(${competency.category.toUpperCase()})`,
+          competency.competencyScore,
+        ]);
+      });
 
-      if (teamCompetencies.length === 1) {
-        let data = [
-          teamCompetencies[0].title,
-          teamCompetencies[0].competencyScore,
-        ];
-        googleChartData.push(data);
-      }
+      quizzes.map((quiz) => {
+        return (quizzesCount[quiz] = (quizzesCount[quiz] || 0) + 1);
+      });
+
+      const quizScoreCount = quizScores.reduce((accumulator, cur) => {
+        let competencyTitle = cur[0];
+        let found = accumulator.find((elem) => elem[0] === competencyTitle);
+        if (found) found[1] += cur[1];
+        else accumulator.push(cur);
+        return accumulator;
+      }, []);
+
+      quizScoreCount.map((quiz) => {
+        if (quiz[1] !== 0) {
+          let quizCount = quizzesCount[quiz[0]];
+          let quizAvg = quiz[1] / quizCount;
+          return googleChartData.push([quiz[0], quizAvg]);
+        }
+      });
 
       const googleConfig = {
         ...configs.teamCompetencyChart,
@@ -160,6 +158,35 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
 
       return <GoogleChart {...googleConfig} />;
     }
+
+    // if (teamCompetencies.length > 0) {
+    //   if (teamCompetencies.length > 1) {
+    //     mergedCompetencies = mergeCompetencies(teamCompetencies)
+
+    //     mergedCompetencies.map((competency) => {
+    //       let data = [
+    //         competency.competencyTitle,
+    //         competency.teamCompetencyScore / competency.numberOfCompetencies,
+    //       ];
+    //       googleChartData.push(data);
+    //     });
+    //   }
+
+    //   if (teamCompetencies.length === 1) {
+    //     let data = [
+    //       teamCompetencies[0].title,
+    //       teamCompetencies[0].competencyScore,
+    //     ];
+    //     googleChartData.push(data);
+    //   }
+
+    //   // const googleConfig = {
+    //   //   ...configs.teamCompetencyChart,
+    //   //   data: googleChartData,
+    //   // };
+
+    //   // return <GoogleChart {...googleConfig} />;
+    // }
 
     return (
       <Empty

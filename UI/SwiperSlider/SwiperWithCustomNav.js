@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Swiper from 'react-id-swiper';
-import Button from 'UI/Antd/Button/Button';
+
+import { Button } from 'antd';
 
 const Wrapper = styled.div`
   position: relative;

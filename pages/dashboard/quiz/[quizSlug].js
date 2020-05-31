@@ -62,10 +62,15 @@ const Quiz = ({ selectedQuiz }) => {
       return quizItem.answers === selectedAnswer
     } 
     if (quizItem.type === "multiple") {
-      const checker = (array, target) => target.every(item => array.includes(item));
+      const checker = (array, target) => {
+        if (array.length === target.length) {
+          return array.every(item => target.includes(item));
+        }
+        return false
+      }
       genExtra(selectedAnswer && checker( quizItem.answers, selectedAnswer))
       return selectedAnswer && checker( quizItem.answers, selectedAnswer)
-    } 
+    }
   }
 
   const genExtra = (isCorrect) => {

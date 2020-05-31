@@ -11,6 +11,7 @@ const MultipleQuestion = ({ quizItem, total, activeQuestion, quizSlug, isAnswerC
   const onCheckboxChange = (e) => {
     setState({ selectedAnswers: e });
   };
+
   const onSubmit = async e => {
     const res = await fetch('/api/user', {
       method: 'PATCH',
@@ -53,7 +54,7 @@ const MultipleQuestion = ({ quizItem, total, activeQuestion, quizSlug, isAnswerC
         options={quizItem.options}
         style={CheckBoxStyle}
         checked
-        defaultValue={state.selectedAnswers || selectedAnswers}
+        defaultValue={selectedAnswers || state.selectedAnswers}
       >
         {quizItem.options.map(option => {
           return (

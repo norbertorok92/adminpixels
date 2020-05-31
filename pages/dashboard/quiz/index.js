@@ -56,6 +56,7 @@ const CompetencyQuiz = ({ quizList }) => {
           quiz: {
             title: quiz.title,
             description: quiz.description,
+            category: quiz.category,
             slug: quiz.slug,
             competencyScore: 0,
           },
