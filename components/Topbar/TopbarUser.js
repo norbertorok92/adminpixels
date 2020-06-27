@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, Popover, Typography } from "antd";
+import { Avatar, Popover, Typography, Spin } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useUser } from "utils/hooks";
 import { useRouter } from "next/router";
@@ -25,6 +25,21 @@ export default function TopbarUser() {
     router.replace("/signin");
     mutate(null);
   };
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          minHeight: "150px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">

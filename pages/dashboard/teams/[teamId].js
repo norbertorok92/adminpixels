@@ -44,12 +44,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
   const [user] = useUser();
   const router = useRouter();
   const { teamId } = router.query;
-  
-  useEffect(() => {
-    if (!user && !selectedTeam.data) {
-      router.replace("/");
-    }
-  }, []);
 
   const teamData = selectedTeam.data && selectedTeam.data.teamProfile;
   const membersData = selectedTeam.data && selectedTeam.data.teamMembersData;
@@ -131,7 +125,9 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
 
      if (teamCompetencies.length > 0) {
       teamCompetencies.map((competency, index) => {
-        quizzes.push(competency.title.toUpperCase());
+        if (competency.competencyScore > 0) {
+          quizzes.push(competency.title.toUpperCase());
+        }
         quizScores.push([
           `${competency.title.toUpperCase()}(${competency.category.toUpperCase()})`,
           competency.competencyScore,
@@ -164,7 +160,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
         ...configs.teamCompetencyChart,
         data: googleChartData,
       };
-
       return <GoogleChart {...googleConfig} />;
     }
 
@@ -203,11 +198,6 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
               <Col span={24} style={colStyle}>
                 <Card
                   title={teamData.teamName}
-                  extra={
-                    user.userRole === "Manager" && (
-                      <EditOutlined key="edit" onClick={() => {}} />
-                    )
-                  }
                 >
                   <p>Description: {teamData.description}</p>
                   <Collapse
@@ -261,7 +251,7 @@ const TeamProfile = ({ selectedTeam, usersList }) => {
                             >
                               <List.Item.Meta
                                 title={
-                                  <a href="">
+                                  <a href={`/dashboard/profile/${item._id}`}>
                                     {item.firstName} {item.lastName}
                                   </a>
                                 }

@@ -45,12 +45,6 @@ const UsersTable = ({ users }) => {
     // xScroll: "fixed",
   });
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
-
   const displayModal = (type) => {
     setVisible(true);
   };

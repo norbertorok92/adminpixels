@@ -1,13 +1,25 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { Row, Col, Card, Collapse, Typography, Spin, Space } from "antd";
+import {
+  Row,
+  Col,
+  Button,
+  Card,
+  Collapse,
+  Typography,
+  Spin,
+  Space,
+  Progress,
+  Divider,
+} from "antd";
 import PageHeader from "components/utility/pageHeader";
 import Box from "components/utility/box";
 import LayoutWrapper from "components/utility/layoutWrapper";
 import ContentHolder from "components/utility/contentHolder";
 import basicStyle from "assets/styles/constants";
-import * as configs from "./chartConfig";
+import * as configs from "utils/dashboardChart.config";
 import GoogleChart from "react-google-charts";
 import { useUser } from "utils/hooks";
 
@@ -37,6 +49,8 @@ const Dashboard = ({ allUsers }) => {
   const googleBarChartData = [["Competency", "Avg. Comp. Score"]];
   const googleDonutChartData = [["Competency Cat.", "Hours per Day"]];
   const allUsersData = allUsers.data;
+  const userRole = user && user.userRole;
+  const { firstName, competencies } = user || {};
   let peopleCompetencies = [];
   allUsersData &&
     allUsersData.map((user) => {
@@ -44,12 +58,6 @@ const Dashboard = ({ allUsers }) => {
         peopleCompetencies.push(...user.competencies);
       }
     });
-
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
 
   if (!user) {
     return (
@@ -116,7 +124,10 @@ const Dashboard = ({ allUsers }) => {
 
     if (peopleCompetencies.length > 0) {
       peopleCompetencies.map((competency, index) => {
-        quizzes.push(competency.title.toUpperCase());
+        if (competency.competencyScore > 0) {
+          quizzes.push(competency.title.toUpperCase());
+        }
+        // quizzes.push(competency.title.toUpperCase());
         quizScores.push([
           competency.title.toUpperCase(),
           competency.competencyScore,
@@ -178,6 +189,25 @@ const Dashboard = ({ allUsers }) => {
     }
   };
 
+  const renderCompetencyLevel = (competencies) => {
+    if (competencies && competencies.length > 0) {
+      return competencies.map((competency, index) => {
+        if (competency.competencyScore !== 0) {
+          return (
+            <span key={`${competency.title}_${index}`}>
+              <p>
+                {competency.title}({competency.category.toUpperCase()})
+              </p>
+              <Progress percent={competency.competencyScore} size="small" />
+              <Divider />
+            </span>
+          );
+        }
+      });
+    }
+    return <p>You have no competencies started.</p>;
+  };
+
   return (
     <>
       <Head>
@@ -189,59 +219,70 @@ const Dashboard = ({ allUsers }) => {
             <PageHeader>Dashboard</PageHeader>
             <Row style={rowStyle} gutter={gutter} justify="start">
               <Col md={24} xs={24} style={colStyle}>
-                <Card title="Company overview">
-                  <Collapse
-                    defaultActiveKey={["0"]}
-                    expandIconPosition={"left"}
-                  >
-                    <Panel header="Competency Quiz Avg. Scores">
-                      <Space direction="vertical">
-                        <Text type="secondary">
-                          In this chart you can view what is the average score
-                          across the company for the competency quizzes
-                          available for the members.
-                        </Text>
-                        <Text mark>
-                          Please NOTE: Quizzes started, but still at 0% progress
-                          don't appear in this chart
-                        </Text>
-                      </Space>
-                      {renderBarChart()}
-                    </Panel>
+                {userRole === "Manager" ? (
+                  <Card title="Company overview">
+                    <Collapse
+                      defaultActiveKey={["0"]}
+                      expandIconPosition={"left"}
+                    >
+                      <Panel header="Competency Quiz Avg. Scores">
+                        <Space direction="vertical">
+                          <Text type="secondary">
+                            In this chart you can view what is the average score
+                            across the company for the competency quizzes
+                            available for the members.
+                          </Text>
+                          <Text mark>
+                            Please NOTE: Quizzes started, but still at 0%
+                            progress don't appear in this chart
+                          </Text>
+                        </Space>
+                        {renderBarChart()}
+                      </Panel>
 
-                    <Panel header="Competency Treemap">
-                      <Space direction="vertical">
-                        <Text type="secondary">
-                          In this chart you can view what competency quizzes the
-                          members of your company started. Click on the category
-                          to see quizzes separated in categories. This will give
-                          you an understanding of the level of interest members
-                          tend to have in different quizzes.
-                        </Text>
-                        <Text mark>
-                          Please NOTE: All started quizzes appear in this chart.
-                          Even those with 0% progress.
-                        </Text>
-                      </Space>
-                      {renderTreeMapChart()}
-                    </Panel>
+                      <Panel header="Competency Treemap">
+                        <Space direction="vertical">
+                          <Text type="secondary">
+                            In this chart you can view what competency quizzes
+                            the members of your company started. Click on the
+                            category to see quizzes separated in categories.
+                            This will give you an understanding of the level of
+                            interest members tend to have in different quizzes.
+                          </Text>
+                          <Text mark>
+                            Please NOTE: All started quizzes appear in this
+                            chart. Even those with 0% progress.
+                          </Text>
+                        </Space>
+                        {renderTreeMapChart()}
+                      </Panel>
 
-                    <Panel header="Competency Quiz Categories">
-                      <Space direction="vertical">
-                        <Text type="secondary">
-                          In this chart you can observe the percentage of
-                          competency categories that are started by the members
-                          of your organization.
-                        </Text>
-                        <Text mark>
-                          Please NOTE: All started quizzes appear in this chart.
-                          Even those with 0% progress.
-                        </Text>
-                      </Space>
-                      {renderDonutChart()}
-                    </Panel>
-                  </Collapse>
-                </Card>
+                      <Panel header="Competency Quiz Categories">
+                        <Space direction="vertical">
+                          <Text type="secondary">
+                            In this chart you can observe the percentage of
+                            competency categories that are started by the
+                            members of your organization.
+                          </Text>
+                          <Text mark>
+                            Please NOTE: All started quizzes appear in this
+                            chart. Even those with 0% progress.
+                          </Text>
+                        </Space>
+                        {renderDonutChart()}
+                      </Panel>
+                    </Collapse>
+                  </Card>
+                ) : (
+                  <Card title={`Your Competencies ${firstName}`}>
+                    {renderCompetencyLevel(competencies)}
+                    <Button type="primary">
+                      <Link href="/dashboard/quiz">
+                        <a>Test your competencies</a>
+                      </Link>
+                    </Button>
+                  </Card>
+                )}
               </Col>
             </Row>
           </LayoutWrapper>

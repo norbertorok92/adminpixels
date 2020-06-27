@@ -28,12 +28,6 @@ const CompetencyQuiz = ({ quizList }) => {
   const [user, { mutate }] = useUser();
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
-
   if (!user) {
     return (
       <div

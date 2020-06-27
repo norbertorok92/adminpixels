@@ -29,12 +29,6 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
-
   if (!user) {
     return (
       <div
@@ -79,7 +73,7 @@ const ProfilePage = () => {
         }
       });
     }
-    return <p>User has no competency quizzes started.</p>;
+    return <p>No competencies started</p>;
   };
 
   return (

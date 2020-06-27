@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { Spin, Row, Col, Card, Option, Collapse, Progress, message } from "antd";
@@ -24,6 +24,21 @@ const Quiz = ({ selectedQuiz }) => {
   const [state, setState] = useState({
     isAnswerCorrect: ""
   });
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          minHeight: '150px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Spin />
+      </div>
+    );
+  }
 
   const { quizSlug } = router.query;
   const selectedQuizData = selectedQuiz && selectedQuiz.data;
@@ -121,7 +136,7 @@ const Quiz = ({ selectedQuiz }) => {
   return (
     <>
       <Head>
-        <title>QUIZ</title>
+        <title>Quiz Page</title>
       </Head>
       <DashboardLayout>
         <LayoutContentWrapper>

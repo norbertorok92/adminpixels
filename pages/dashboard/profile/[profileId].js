@@ -18,12 +18,6 @@ const ProfilePage = ({userProfile}) => {
   const {email, firstName, lastName, bio, competencies} = userProfile.data || {};
   const { TabPane } = Tabs;
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
-
   if (!user || !userProfile) {
     return (
       <div
@@ -53,13 +47,13 @@ const ProfilePage = ({userProfile}) => {
         }
       });
     }
-    return <p>User has no competency quizzes started.</p>;
+    return <p>No competencies started</p>;
   };
 
   return (
     <>
       <Head>
-        <title>My profile</title>
+        <title>Profile</title>
       </Head>
       <DashboardLayout>
           {userProfile ? (

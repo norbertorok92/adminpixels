@@ -7,7 +7,7 @@ const MongoStore = connectMongo({ Store, MemoryStore });
 
 async function withSession(req, res, next) {
   const mongoStore = new MongoStore({
-    client: req.dbClient, // see how we use req.dbClient from the previous step
+    client: req.dbClient,
     stringify: false,
   });
   return session({

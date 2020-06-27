@@ -12,11 +12,6 @@ handler.post(async (req, res) => {
   const description = req.body.description;
   const members = req.body.members || [];
 
-  // if (!teamName || !description) {
-  //   res.status(400).send('Missing required field(s)');
-  //   return;
-  // }
-
   try {
     const user = await req.db
       .collection("teams")

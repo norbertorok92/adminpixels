@@ -58,12 +58,6 @@ const TeamsTable = ({ teamsList, usersList }) => {
   const [visible, setVisible] = useState(false);
   const [newTeamData, setNewTeamData] = useState(initialState);
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/");
-    }
-  }, []);
-
   const onViewTeamProfile = (teamId) => {
     router.replace(`/dashboard/teams/${teamId}`);
   };
@@ -142,6 +136,26 @@ const TeamsTable = ({ teamsList, usersList }) => {
     }));
   };
 
+  const generateCardTitle = (team) => {
+    if (team.members.includes(user._id)) {
+      return `${team.teamName} (You are a member)`
+    }
+    return team.teamName
+  }
+
+  const generateViewTeamButton = (team) => {
+    if (team.members.includes(user._id) || user.userRole === "Manager") {
+      return (
+        <Tooltip title="View Team">
+          <EyeOutlined
+            key={`${team._id}_view`}
+            onClick={() => onViewTeamProfile(team._id)}
+          />
+        </Tooltip>
+      )
+    }
+  }
+
   return (
     <>
       <Head>
@@ -151,7 +165,6 @@ const TeamsTable = ({ teamsList, usersList }) => {
         <DashboardLayout>
           <LayoutContentWrapper>
             <PageHeader>Teams</PageHeader>
-
             {user.userRole === "Manager" && (
               <Row style={addNewTeamButtonStyle} justify="start">
                 <Button type="primary" onClick={() => displayModal()}>
@@ -164,15 +177,10 @@ const TeamsTable = ({ teamsList, usersList }) => {
               {teamsList.data.map((team, idx) => (
                 <Col lg={12} md={12} sm={12} xs={24} style={colStyle} key={idx}>
                   <Card
-                    title={team.teamName}
+                    title={generateCardTitle(team)}
                     extra={
                       <Space size="middle">
-                        <Tooltip title="View Team">
-                          <EyeOutlined
-                            key={`${team._id}_view`}
-                            onClick={() => onViewTeamProfile(team._id)}
-                          />
-                        </Tooltip>
+                        {generateViewTeamButton(team)}
                         {user.userRole === "Manager" && (
                           <Tooltip title="Delete Team">
                             <Popconfirm
